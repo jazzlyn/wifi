@@ -1,0 +1,11 @@
+body {
+  font-family: Arial;
+}
+
+#output {
+	width: 400px;
+	height: 240px;
+	border: 1px solid #000;
+	margin-top: 20px;
+	font-size: 36px;
+}
