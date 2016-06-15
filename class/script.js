@@ -6,6 +6,7 @@ for (var i = 0; i < allButtons.length; i++) {
 
 function addClass() {
   var actualColor = event.target.id;
+
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }

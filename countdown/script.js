@@ -21,6 +21,7 @@ function startCountdown() {
     myIntervall = setInterval(runCountdown, 1000);
   }
 }
+
 function runCountdown() {
   myOutput.innerHTML = currentSeconds;
   if (currentSeconds === 0) {
@@ -31,8 +32,9 @@ function runCountdown() {
   }
   currentSeconds--;
 }
+
 function resetField() {
   myOutput.innerHTML = "";
-  var realExecutionTime = (stopExecution-startExecution) / 1000;
+  var realExecutionTime = (stopExecution - startExecution) / 1000;
   myOutput.innerHTML = realExecutionTime;
 }
