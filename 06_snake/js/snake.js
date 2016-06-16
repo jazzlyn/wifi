@@ -13,7 +13,7 @@
   function init() {
     playField = document.getElementById(playFieldId);
     drawGrid();
-
+    createSnake();
   };
 
   function drawGrid() {
@@ -29,4 +29,12 @@
     }
     playField.appendChild(grid);
   };
+
+  function createSnake() {
+    createSnakeSegment();
+  }
+
+  function createSnakeSegment() {
+
+  }
 }());
