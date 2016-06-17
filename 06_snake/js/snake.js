@@ -1,12 +1,13 @@
 (function () {
   'use strict';
   /******** initialize ********/
-  var rows = 10
-    , cols = 10
-    , snake = []
-    , snakeStartLen = 4
-    , playFieldId = 'playField'
-    , playField;
+  var rows = 10;
+  var cols = 10;
+  var snake = [];
+  var snakeStartLen = 4;
+  var playFieldId = 'playField';
+  var playField;
+  var grid;
 
   init();
 
@@ -14,10 +15,11 @@
     playField = document.getElementById(playFieldId);
     drawGrid();
     createSnake();
-  };
+    drawSnake();
+  }
 
   function drawGrid() {
-    var grid = document.createElement('table');
+    grid = document.createElement('table');
     grid.className = 'grid';
     for (var i = 0; i < rows; i++) {
       var row = document.createElement('tr');
@@ -28,13 +30,27 @@
       grid.appendChild(row);
     }
     playField.appendChild(grid);
-  };
+  }
 
   function createSnake() {
-    createSnakeSegment();
+    // TODO: need to make sure, the snake is inside the grid
+    for (var i = 0; i < snakeStartLen; i++) {
+      createSnakeSegment(i, 0);
+    }
   }
 
-  function createSnakeSegment() {
-
+  function createSnakeSegment(x, y) {
+    var segment = [x, y];
+    snake.push(segment);
   }
-}());
+  
+  function drawSnake() {
+    for (var i = 0; i < snake.length; i++) {
+      var y = snake[i][1]; // get y element from snake array
+      var row = grid.getElementsByTagName('tr')[y];
+      var x = snake[i][0]; // get x element from snake array
+      var cell = row.getElementsByTagName('td')[x];
+      cell.className = 'snake-segment';
+    }
+  }
+})();

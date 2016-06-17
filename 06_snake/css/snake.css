@@ -21,7 +21,7 @@
 }
 
 .snake-segment {
-  position: absolute;
+/*  position: absolute; */
   width: 31px;
   height: 31px;
   border: 1px solid black;

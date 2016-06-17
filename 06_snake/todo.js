@@ -1,9 +1,9 @@
 //tabelle erstellen, gitter
-- schlange objekt
-  - beinhaltet alle segmente
-  - jedes segment ist ein objekt
-    - cords
-    - referenz auf div
+// - schlange objekt
+//  - beinhaltet alle segmente
+//  - jedes segment ist ein objekt
+//    - cords
+    - referenz auf td
 wie bewegen wir, tastaturabfragen
   - nur ein objekt bewegen wir
   - beliebig lange schlange bewegen bei tastaturklick
