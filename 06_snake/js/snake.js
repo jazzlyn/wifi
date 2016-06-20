@@ -9,13 +9,17 @@
   var playField;
   var grid;
 
+  var LEFT = 37;
+  var UP = 38;
+  var RIGHT = 39;
+  var DOWN = 40;
+
   init();
 
   function init() {
     playField = document.getElementById(playFieldId);
     drawGrid();
     createSnake();
-    drawSnake();
   }
 
   function drawGrid() {
@@ -40,17 +44,64 @@
   }
 
   function createSnakeSegment(x, y) {
+    if (collisionCheck(x, y)) {
+      return alert('zomg! start new game.');
+    }
     var segment = [x, y];
-    snake.push(segment);
+    var row = grid.getElementsByTagName('tr')[y];
+    var cell = row.getElementsByTagName('td')[x];
+    cell.className = 'snake-segment';
+    segment.push(cell);
+    snake.unshift(segment); //sets element on first position of array
+  }
+
+  function removeLastSnakeSegment() {
+    var lastSnakeSegment = snake.pop();
+    //  [x, y, cell]
+    lastSnakeSegment[2].className = null;
+  }
+
+  function moveSnake(direction) {
+    var snakeHeadSegment = snake[0];
+    switch (direction) {
+      case LEFT:
+        var x = snakeHeadSegment[0] - 1;
+        var y = snakeHeadSegment[1];
+        break;
+      case UP:
+        var x = snakeHeadSegment[0];
+        var y = snakeHeadSegment[1] - 1;
+        break;
+      case RIGHT:
+        var x = snakeHeadSegment[0] + 1;
+        var y = snakeHeadSegment[1];
+        break;
+      case DOWN:
+        var x = snakeHeadSegment[0];
+        var y = snakeHeadSegment[1] + 1;
+        break;
+    }
+    removeLastSnakeSegment();
+    createSnakeSegment(x, y);
   }
   
-  function drawSnake() {
-    for (var i = 0; i < snake.length; i++) {
-      var y = snake[i][1]; // get y element from snake array
-      var row = grid.getElementsByTagName('tr')[y];
-      var x = snake[i][0]; // get x element from snake array
-      var cell = row.getElementsByTagName('td')[x];
-      cell.className = 'snake-segment';
+  document.addEventListener('keydown', function(e) {
+    var key = e.keyCode;
+    if (key >= 37 && key <= 40) {
+      moveSnake(key); // key = direction
     }
+  });
+
+  function collisionCheck(x, y) {
+    if (x < 0 || x >= cols || y < 0 || y >= rows) { // checks borders
+      return true;
+    }
+    for (var i = 0; i < snake.length; i++) { // checks snake collision
+      if (x === snake[i][0] && y === snake[i][1]) {
+        return true;
+      }
+    }
+    return false;
   }
+
 })();
