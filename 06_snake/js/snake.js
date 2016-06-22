@@ -106,27 +106,25 @@
   }
 
   function createFood() {
-    var x = Math.floor(Math.random() * grid.getElementsByTagName('tr').length);
-    var y = Math.floor(Math.random() * grid.getElementsByTagName('tr').length);
+    function randomX() {
+      return Math.floor(Math.random() * grid.getElementsByTagName('tr').length);
+    }
+    function randomY() {
+      return Math.floor(Math.random() * grid.getElementsByTagName('tr').length);
+    }
+    var x = randomX();
+    var y = randomY();
     while(collisionCheck(x, y)) {
-      x = new x;
-      y = new y;
+      x = randomX();
+      y = randomY();
     }
     var row = grid.getElementsByTagName('tr')[y];
     var cell = row.getElementsByTagName('td')[x];
     cell.className = 'food-segment';
-    return cell;
-  }
-
-  function removeFood() {
-    // remove class from cell
   }
 
   function foodInterval() {
-    setInterval(function() {
-      createFood();
-      //;
-    }, 8000);
+    setInterval(createFood, 8000);
   }
 
   /*function createFood() {
