@@ -8,7 +8,7 @@
 //  - nur ein objekt bewegen wir
 //  - beliebig lange schlange bewegen bei tastaturklick
 
-Kollision unschön, Element wird versetzt und dann erst gecheckt.
+// Kollision unschön, Element wird versetzt und dann erst gecheckt.
 
 in welchem feld befindet sich etwas
 //  - sie darf nicht mit sich selbst zusammenstoßen und nich tmit dem rand

@@ -20,6 +20,7 @@
     playField = document.getElementById(playFieldId);
     drawGrid();
     createSnake();
+    setTimeout(foodInterval, 5000);
   }
 
   function drawGrid() {
@@ -81,11 +82,11 @@
         var y = snakeHeadSegment[1] + 1;
         break;
     }
-    removeLastSnakeSegment();
     createSnakeSegment(x, y);
+    removeLastSnakeSegment();
   }
-  
-  document.addEventListener('keydown', function(e) {
+
+  document.addEventListener('keydown', function (e) {
     var key = e.keyCode;
     if (key >= 37 && key <= 40) {
       moveSnake(key); // key = direction
@@ -103,5 +104,40 @@
     }
     return false;
   }
+
+  function createFood() {
+    var x = Math.floor(Math.random() * grid.getElementsByTagName('tr').length);
+    var y = Math.floor(Math.random() * grid.getElementsByTagName('tr').length);
+    while(collisionCheck(x, y)) {
+      x = new x;
+      y = new y;
+    }
+    var row = grid.getElementsByTagName('tr')[y];
+    var cell = row.getElementsByTagName('td')[x];
+    cell.className = 'food-segment';
+    return cell;
+  }
+
+  function removeFood() {
+    // remove class from cell
+  }
+
+  function foodInterval() {
+    setInterval(function() {
+      createFood();
+      //;
+    }, 8000);
+  }
+
+  /*function createFood() {
+    var cell = grid.querySelectorAll('td');
+    var randomNumber = Math.floor(Math.random() * cell.length);
+    var gridMatch = cell[randomNumber];
+    if (gridMatch.className === 'snake-segment') {
+      return;
+    } else {
+      gridMatch.className = 'food-segment';
+    }
+  }*/
 
 })();
