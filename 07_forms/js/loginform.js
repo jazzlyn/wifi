@@ -1,6 +1,5 @@
 (function() {
     'use strict';
-    // submit wird aktiv, wenn username und pw ausgefüllt sind. enter soll abgefangen werden. abschickbutton ausgegraut.
 
     var form = document.querySelector('form');
     var usernameInput = form.querySelector('input[type=text]');
@@ -8,10 +7,10 @@
     var submitButton = form.querySelector('button[type=submit]');
 
     function init() {
-        form.addEventlistener('submit', submitHandler);
+        form.addEventListener('submit', submitHandler);
         usernameInput.addEventListener('keyup', inputHandler);
         passwordInput.addEventListener('keyup', inputHandler);
-        disableButton();
+        disableSubmit();
     }
 
     function submitHandler(event) {
@@ -40,6 +39,5 @@
     }
 
     init();
-    
 
 })();
