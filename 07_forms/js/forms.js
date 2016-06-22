@@ -1,7 +1,6 @@
 (function () {
   'use strict';
   /*// zugriff auf formulare über die üblichen selektoren wie id, klasse, tag etc.
-  var loginForm = document.getElementById('loginForm');
   // document besitzt ein forms array.
   console.log(document.forms);
     // Jedes Formular besitzt ein Elements Objekt.
@@ -12,6 +11,7 @@
   var password = document.getElementById('password');
   var service = document.getElementById('service');
   var checkbox = document.getElementById('agb');
+  var loginForm = document.getElementById('loginForm');
 
   loginForm.addEventListener('submit', function(e) {
     if (validateForm() === 0) {
@@ -35,8 +35,8 @@
 
 
   function validateForm() {
-  // add blur event for live validating
-  var errors = 4;
+    // add blur event for live validating
+    var errors = 4;
     if (username.value !== '') {
       errors--;
       deleteError(username);
@@ -54,7 +54,7 @@
       deleteError(checkbox);
     }
     return errors;
-  };
+  }
 
 
   function getError(element) {
@@ -162,3 +162,4 @@
     }
 
 }());
+*/
