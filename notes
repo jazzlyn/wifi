@@ -1,0 +1,423 @@
+Beautify
+Brackets
+Color Highlighter
+Emmet
+JSHint
+
+Preferences
+
+/*
+ * Dies ist ein schreibgeschütztes Dokument, das alle von
+ * Brackets unterstützten Einstellungen auflistet.
+ * Nutzen Sie dieses Dokument als Referenz, um die
+ * Einstellungsdatei "brackets.json", die in der anderen
+ * Ansicht geöffnet ist, anzupassen.
+ * Besuchen Sie auch https://github.com/adobe/brackets/wiki/How-to-Use-Brackets#preferences,
+ * um mehr über den Umgang mit Einstellungen in Brackets
+ * zu erfahren.
+ */
+
+{
+	// Standard: true
+	"brackets-git.addEndlineToTheEndOfFile": true,
+
+	// Standard: AVATAR_COLOR
+	"brackets-git.avatarType": "AVATAR_COLOR",
+
+	"brackets-git.bashShortcut": {},
+
+	// Standard: false
+	"brackets-git.clearWhitespaceOnSave": false,
+
+	"brackets-git.commitAllShortcut": {},
+
+	"brackets-git.commitCurrentShortcut": {},
+
+	"brackets-git.dateFormat": {},
+
+	// Standard: 1
+	"brackets-git.dateMode": 1,
+
+	// Standard: false
+	"brackets-git.debugMode": false,
+
+	// Standard: false
+	"brackets-git.enableAdvancedFeatures": false,
+
+	// Standard: false
+	"brackets-git.gerritPushref": false,
+
+	// Standard: 
+	"brackets-git.gitPath": "",
+
+	// Standard: 30
+	"brackets-git.gitTimeout": 30,
+
+	"brackets-git.gotoNextChangeShortcut": {},
+
+	"brackets-git.gotoPrevChangeShortcut": {},
+
+	// Standard: true
+	"brackets-git.markModifiedInTree": true,
+
+	// Standard: false
+	"brackets-git.normalizeLineEndings": false,
+
+	// Standard: Ctrl-Alt-G
+	"brackets-git.panelShortcut": "Ctrl-Alt-G",
+
+	"brackets-git.pullShortcut": {},
+
+	"brackets-git.pushShortcut": {},
+
+	"brackets-git.refreshShortcut": {},
+
+	// Standard: false
+	"brackets-git.removeByteOrderMark": false,
+
+	// Standard: true
+	"brackets-git.showBashButton": true,
+
+	// Standard: false
+	"brackets-git.showTerminalIcon": false,
+
+	// Standard: true
+	"brackets-git.stripWhitespaceFromCommits": true,
+
+	// Standard: 
+	"brackets-git.terminalCommand": "",
+
+	// Standard: 
+	"brackets-git.terminalCommandArgs": "",
+
+	// Standard: true
+	"brackets-git.useCodeInspection": true,
+
+	// Standard: false
+	"brackets-git.useDifftool": false,
+
+	// Standard: false
+	"brackets-git.useGitFtp": false,
+
+	// Standard: true
+	"brackets-git.useGitGutter": true,
+
+	// Standard: false
+	"brackets-git.useVerboseDiff": false,
+
+	// Aktiviert das automatische Schließen von runden, eckigen und geschweiften Klammern
+	"closeBrackets": true,
+
+	// Aktiviert den Eintrag "Alle darüber schließen" im Kontextmenü der Offenen Dateien
+	"closeOthers.above": true,
+
+	// Aktiviert den Eintrag "Alle darunter schließen" im Kontextmenü der Offenen Dateien
+	"closeOthers.below": true,
+
+	// Aktiviert den Eintrag "Alle anderen schließen" im Kontextmenü der Offenen Dateien
+	"closeOthers.others": true,
+
+	// Optionen für die "Tags automatisch schließen"-Funktion
+	"closeTags": {
+		// Ein Array von Tags, die nicht automatisch geschlossen werden sollen
+		"dontCloseTags": [],
+
+		// Ein Array von Tags, die einen Zeilenumbruch auslösen
+		"indentTags": [],
+
+		// Tag beim Eingeben von / vom schließenden Tag schließen
+		"whenClosing": true,
+
+		// Tag beim Eingeben von > vom öffnenden Tag schließen
+		"whenOpening": true
+	},
+
+	// Immer einklappbare Folding-Markierungen anzeigen, wenn sich der Zeileneinzug ändert
+	"code-folding.alwaysUseIndentFold": false,
+
+	// Aktiviert Code Folding
+	"code-folding.enabled": true,
+
+	// Einklappbare Folding-Markierungen nur anzeigen, wenn sich die Maus über dem linken Zeilenrand befindet
+	"code-folding.hideUntilMouseover": false,
+
+	// Aktiviert das Einklappen von ausgewähltem Text
+	"code-folding.makeSelectionsFoldable": true,
+
+	// Limitiert die maximale Anzahl von "Alle Einklappen"-Markierungen
+	"code-folding.maxFoldLevel": 2,
+
+	// Mindestzahl an Zeilen, bevor eine einklappbare Folding-Markierung erscheint
+	"code-folding.minFoldSize": 2,
+
+	// Aktiviert das Speichern der eingeklappten Abschnitte
+	"code-folding.saveFoldStates": true,
+
+	// Aktiviert Code Hints für HTML-Attribute
+	"codehint.AttrHints": true,
+
+	// Aktiviert Code Hints für CSS/LESS/SCSS
+	"codehint.CssPropHints": true,
+
+	// Aktiviert Code Hints für JavaScript
+	"codehint.JSHints": true,
+
+	// Aktiviert Code Hints für Einstellungen
+	"codehint.PrefHints": true,
+
+	// Aktiviert Code Hints für SVG
+	"codehint.SVGHints": true,
+
+	// Aktiviert Code Hints für HTML Entities
+	"codehint.SpecialCharHints": true,
+
+	// Aktiviert Code Hints für HTML-Tags
+	"codehint.TagHints": true,
+
+	// Aktiviert Code Hints für URLs in HTML & CSS/LESS/SCSS
+	"codehint.UrlCodeHints": true,
+
+	// Aktiviert die Anzeige von Fehlern in der Statusleiste
+	"debug.showErrorsInStatusBar": false,
+
+	// Aktiviert Drag & Drop
+	"dragDropText": false,
+
+	// Aktiviert die Sofortsuche
+	"findInFiles.instantSearch": true,
+
+	// Aktiviert die Node-basierte Suche
+	"findInFiles.nodeSearch": true,
+
+	// Schriftart ändern
+	"fonts.fontFamily": "'SourceCodePro-Medium', ＭＳ ゴシック, 'MS Gothic', monospace",
+
+	// Schriftgröße ändern; z. B. 13px
+	"fonts.fontSize": "12px",
+
+	// Aktiviert das Übermitteln des Brackets-Statusberichts
+	"healthData.healthDataTracking": true,
+
+	// Aktiviert die Hervorhebung von Vorkommnissen des markierten Worts im Dokument
+	"highlightMatches": false,
+
+	// Aktiviert das Einrücken von Zeilenkommentaren
+	"indentLineComment": false,
+
+	// Aktiviert das Akzeptieren eines Code Hints mithilfe der Tab-Taste
+	"insertHintOnTab": false,
+
+	// Ein Array von Dateien, für die erkannt wurde, dass Tern durch sie außer Kontrolle gerät
+	"jscodehints.detectedExclusions": [],
+
+	// Das Zeitlimit, nach dem Tern stoppt zu versuchen, Dateien zu verstehen
+	"jscodehints.inferenceTimeout": 30000,
+
+	// Deaktiviert das automatische Anzeigen der JavaScript Code Hints, sobald . eingegeben wird
+	"jscodehints.noHintsOnDot": false,
+
+	// Zeigt Details zum Datentyp in den Code Hints für JavaScript
+	"jscodehints.typedetails": true,
+
+	"jshint.globals": {},
+
+	"jshint.options": {
+		// Standard: true
+		"undef": true
+	},
+
+	// Standard: false
+	"jshint.scanProjectOnly": false,
+
+	// Ein Objekt, das die Standardeinstellungen für JSLint festlegt
+	"jslint.options": {
+		// Ausdrücke mit Zuweisungen erlauben
+		"ass": false,
+
+		// Bitweise Operatoren erlauben
+		"bitwise": false,
+
+		// Die Verwendung von globalen Variablen, die im Browser standardmäßig verfügbar sind, erlauben
+		"browser": false,
+
+		// Google Closure-Anmerkungen erlauben
+		"closure": false,
+
+		// "continue"-Anweisungen erlauben
+		"continue": false,
+
+		// Die Verwendung von globalen Variablen, die in Verbindung mit CouchDB verfügbar sind, erlauben
+		"couch": false,
+
+		// "debugger"-Anweisungen erlauben
+		"debug": false,
+
+		// Die Verwendung von globalen Variablen, die bei der Entwicklung hilfreich sind, erlauben
+		"devel": false,
+
+		// == und != erlauben
+		"eqeq": false,
+
+		// Die Verwendung von globalen Variablen, die Bestandteil von ES6 sind, erlauben
+		"es6": false,
+
+		// eval erlauben
+		"evil": false,
+
+		// "for ... in" ohne weitere Prüfung erlauben
+		"forin": false,
+
+		// Festlegen einer bestimmten Tab-Schrittweite bzw. Anzahl an Leerzeichen
+		"indent": 0,
+
+		// Maximale Anzahl an Warnungen
+		"maxerr": 0,
+
+		// Maximale Anzahl an Zeichen in einer Zeile
+		"maxlen": 0,
+
+		// Kleingeschriebene Konstruktoren erlauben
+		"newcap": false,
+
+		// Die Verwendung von globalen Variablen, die in Node.js standardmäßig verfügbar sind, erlauben
+		"node": false,
+
+		// Unterstrich am Beginn oder Ende eines Bezeichners erlauben
+		"nomen": false,
+
+		// Beim ersten Fehler stoppen
+		"passfail": false,
+
+		// ++ und -- erlauben
+		"plusplus": false,
+
+		// . und [^...] in regulären Ausdrücken erlauben
+		"regexp": false,
+
+		// Die Verwendung von globalen Variablen, die in Rhino standardmäßig verfügbar sind, erlauben
+		"rhino": false,
+
+		// Fehlen von `use strict` erlauben
+		"sloppy": false,
+
+		// Die Nutzung blockierender Funktionen ('...Sync') erlauben
+		"stupid": false,
+
+		// Ineffizientes Subscripting erlauben
+		"sub": false,
+
+		// TODO-Kommentare erlauben
+		"todo": false,
+
+		// Unbenutzte Funktionsparameter erlauben
+		"unparam": false,
+
+		// Mehr als 1 Variable in Funktionen erlauben
+		"vars": false,
+
+		// Regeln für Whitespace ignorieren
+		"white": false
+	},
+
+	// Zusätzliche Zuordnungen von Dateierweiterung zu Programmiersprache
+	"language.fileExtensions": {},
+
+	// Zusätzliche Zuordnungen von Dateiname zu Programmiersprache
+	"language.fileNames": {},
+
+	// Die Zeitbegrenzung in Millisekunden, nach der asynchrone Linter gestoppt werden
+	"linting.asyncTimeout": 10000,
+
+	// Das Linter-Panel einklappen
+	"linting.collapsed": false,
+
+	// Aktiviert Linten beim Speichern
+	"linting.enabled": true,
+
+	// Array der Linter, die als erstes ausgeführt werden
+	"linting.prefer": [],
+
+	// Nur die in linting.prefer angegebenen Linter ausführen
+	"linting.usePreferredOnly": false,
+
+	// Aktiviert die experimentelle Live-Vorschau
+	"livedev.multibrowser": false,
+
+	// Maximale Anzahl an Code Hints, die gleichzeitig angezeigt werden
+	"maxCodeHints": 50,
+
+	// Aktiviert den Ablenkungsfreien Modus, bei dem alle UI-Elemente außer dem Code ausgeblendet werden
+	"noDistractions": false,
+
+	// Eine Ansicht einer geteilten Ansicht wird automatisch geschlossen, wenn ihre letzte Datei mit dem Schließen-Button oben rechts geschlossen wird
+	"pane.mergePanesWhenLastFileClosed": false,
+
+	// Zeigt bei der geteilten Ansicht die Schließen- und Umschalten-Buttons in der Kopfzeile
+	"pane.showPaneHeaderButtons": "hover",
+
+	// Aktiviert das Öffnen der Einstellungsdatei in einer geteilten Ansicht
+	"preferencesView.openPrefsInSplitView": true,
+
+	// Öffnet die Einstellungsdatei in der rechten bzw. unteren Ansicht
+	"preferencesView.openUserPrefsInSecondPane": true,
+
+	// URL des Proxyservers, der bei der Installation von Erweiterungen verwendet wird
+	"proxy": "",
+
+	// Aktiviert die Schnelle Farbansicht
+	"quickview.enabled": true,
+
+	// Aktiviert die Bildvorschau auch bei URLs, die keine Dateierweiterung haben
+	"quickview.extensionlessImagePreview": true,
+
+	// Aktiviert das Navigieren durch kürzlich verwendete Dateien
+	"recent-files.navigation": true,
+
+	// Aktiviert Scrollen über das Ende des Dokuments hinaus
+	"scrollPastEnd": false,
+
+	// Aktiviert Code Hints
+	"showCodeHints": true,
+
+	// Der Cursor wird auch angezeigt, wenn eine Auswahl besteht
+	"showCursorWhenSelecting": false,
+
+	// Zeigt Zeilennummern am linken Zeilenrand an
+	"showLineNumbers": true,
+
+	// Aktiviert das automatische Einrücken von neuen Blocks
+	"smartIndent": true,
+
+	// Aktiviert die "Soft Tabs"-Navigation
+	"softTabs": true,
+
+	// Aktiviert, dass Ordner im Dateibaum vor Dateien aufgelistet werden
+	"sortDirectoriesFirst": true,
+
+	// Anzahl der Leerzeichen beim Einrücken, wenn Leerzeichen verwendet werden
+	"spaceUnits": 4,
+
+	// Port, der vom internen Server für die Live-Vorschau verwendet wird
+	"staticserver.port": 0,
+
+	// Aktiviert das Hervorheben der aktiven Zeile
+	"styleActiveLine": false,
+
+	// Anzahl der Leerzeichen, die für Tabs angezeigt werden
+	"tabSize": 4,
+
+	// Wählen eines Brackets-Designs
+	"themes.theme": "light-theme",
+
+	// Erlaubt die Verwendung der Scrollbars vom Design
+	"themes.themeScrollbars": true,
+
+	// Erzeugt großgeschriebene Hex-Werte im Farbeditor
+	"uppercaseColors": false,
+
+	// Tabs anstelle von Leerzeichen verwenden
+	"useTabChar": false,
+
+	// Aktiviert Zeilenumbruch für lange Zeilen
+	"wordWrap": true
+}
