@@ -1,0 +1,53 @@
+/*
+    Die formConfig beinhaltet die validierenden Felder.
+    Der key eines Eintrags entspricht dem Namen des Feldes
+
+    Folgende Attribute können bzw. müssen gesetzt werden
+    (o) = optional, (v) = verpflichtend
+    id (o)              id des Elements
+    required (v)        Pflichtfeld, verpflichtend
+    dataType (v)        bestimmt die Art der Validierung, verpflichtend
+                        - text              Alles erlaubt, keine HTML Tags
+                        - html              Alles erlaubt inkl. HTML Tags
+                        - int               Ganzzahlen
+                        - float             Kommazahlen
+                        - boolean           true oder false
+                        - password          Nach einem vorgegebenen Muster
+                        - select            Prüft, ob der der Wert in den options vorkommt
+                        - date              Im Format tt.mm.jjjj
+                        - custom            Regular Expression
+    regex (o)           muss gesetzt werden, wenn der Datentyp auf custom gesetzt ist
+    multiple (o)        bei select verwendet, gibt an ob mehrere Werte gesetzt werden können
+    minLength (o)       minimale Zeichenlänge des value
+    maxLength  (o)      maximale Zeichenlänge des value
+    minVal (o)          Minimale Höhe eines Zahlenwertes (float oder int)
+    maxVal (o)          Maximale Höhe eines Zahlnewertes
+
+*/
+
+var formConfig = {
+    "username": {
+        "id": "userName",
+        "required": true,
+        "dataType": "text",
+        "maxLength": 20
+    },
+    "password": {
+        "id": "password",
+        "required": true,
+        "dataType": "password",
+        "maxLength": 76,
+        "minLength": 8
+    },
+    "service": {
+        "id": "service",
+        "required": true,
+        "dataType": "select",
+        "multiple": false
+    },
+    "agb": {
+        "id": "agb",
+        "required": true,
+        "dataType": "boolean"
+    }
+};
