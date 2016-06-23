@@ -26,7 +26,9 @@
                 // Fehlermeldungen entfernen, falls vorhanden
             }
             else {
-                // Fehlermeldungen hinzufügen
+              // TODO AT HOME:
+              // Fehlermeldungen hinzufügen
+              // Email Validation?
             }
         }
 
