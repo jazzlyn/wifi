@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+<div class="container">
+    <header class="main-header">
+        <h1>Generic Forms</h1>
+    </header>
+    <main>
+        <h2>Login</h2>
+        <form action="" method="post" class="pure-form pure-form-stacked" id="loginForm">
+          <fieldset>
+            <label for="userName">User:</label>
+            <input type="text" name="username" id="userName" placeholder="Username">
+            <label for="password">Password:</label>
+            <input type="text" name="password" id="password" placeholder="Password">
+            <select name="service" id="service">
+              <option value="">--Select an Option</option>
+              <option value="polieren">Polieren</option>
+              <option value="schleifen">Schleifen</option>
+              <option value="lackieren">Lackieren</option>
+            </select>
+            <input type="checkbox" name="agb" value="checkbox" id="agb">I agree<br>
+            <input type="submit" value="Send" class="pure-button pure-button-primary">
+          </fieldset>
+        </form>
+    </main>
+</div>
+<script src="js/home_validation.js"></script>
+</body>
+</html>

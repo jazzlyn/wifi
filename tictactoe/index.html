@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TicTacToe</title>
+  <style>
+    #playField {
+        border: 3px solid darkgrey;
+        margin: 20px;
+        display: inline-block;
+        padding: 10px;
+        width: 300px;
+    }
+    #playField .X:after {
+        content: "X";
+    }
+
+    #playField .O:after {
+        content: "O";
+    }
+    
+    #playField > div {
+        display: inline-block;
+    }
+    #playField > div > div {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        vertical-align: bottom;
+        font-weight: bold;
+        font-size: 86px;
+    }
+    #playField > div:nth-child(even) > div:nth-child(even),
+    #playField > div:nth-child(odd) > div:nth-child(odd) {
+        background-color: darkgrey;
+    } 
+  </style>
+</head>
+
+<body>
+  <div id="playField">
+    <div class="row1">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="row2">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="row3">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>
