@@ -1,0 +1,14 @@
+#form-div {
+  text-align: center;
+  border: 0px;
+}
+
+input[type=text] {
+  
+}
+
+
+.error {
+  color: red;
+  font-weight: bold;
+}

@@ -36,29 +36,34 @@
 
 
   function validateForm() {
-    if (validateField(/*event target*/)) {
+    if (validateField()) {
       enableSubmit();
     }
   }
 
-  function validateField(field) {
-    for(var i = 0; i < field.length; i++) {
-      if (field === usernameInput && !/[^a-zA-Z0-9_-.]/.test(field)) {
-        showError('Der Username darf nur Groß- und Kleinbuchstaben, Zahlen sowie _ - und . beinhalten.', usernameInput)
-      } else if (field === usernameInput && (field.length < 6 || field.length > 20)) {
-         showError('Der Username darf nur zwischen 6 und 20 Zeichen lang sein.', usernameInput);
-      } else if (field === passwordInput && field.length < 6) {
-        showError('Das Passwort muss mindestens 6 Zeichen lang sein.', passwordInput);
-      }
-      return true;
+  function validateField() {
+ //   var regEx = new RegExp('^[a-zA-Z0-9_\\-\\.]*$');
+    var regEx = new RegExp('^[a-zA-Z0-9]*$');
+    if (regEx.test(usernameInput) === false) {
+      showError('Der Username darf nur Gross- und Kleinbuchstaben, Zahlen sowie _ - und . beinhalten.', usernameInput)
+      return;
     }
+    if (usernameInput.value < 6 || usernameInput.value > 20) {
+       showError('Der Username darf nur zwischen 6 und 20 Zeichen lang sein.', usernameInput);
+      return;
+    }
+    if (passwordInput.value < 6) {
+      showError('Das Passwort muss mindestens 6 Zeichen lang sein.', passwordInput);
+      return;
+    }
+    return true;
   }
 
   function showError(msg, inputField) {
     var errorDiv = document.createElement('div');
+    errorDiv.className = 'error';
     var text = errorDiv.innerHTML = msg;
-    errorDiv.appendChild(text);
-    inputField.parentNode.insertAdjacentHTML(errorDiv);
+    inputField.parentNode.insertBefore(errorDiv, inputField.nextElementSibling);
   }
 
   init();
