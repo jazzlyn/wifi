@@ -1,53 +1,167 @@
-/*
-
+/**
+*   Gibt die Anzahl der Members eines Objekts zurück
 */
-// Gibt Anzahl der Member eines Objekts zurück
-function objectLength(object) {
-  return Object.keys(object).length;
+function objectLength(obj){
+    return  Object.keys(obj).length;
 }
 
-// Ein einzelnes Formfeld kann nach den Kriterien aus fieldConfig variieren.
+/**
+*   Ein einzelnes Formfeld nach den Kriterien aus fieldConfig validieren
+*/
+function validateField(field, fieldConfig) {
+    var myType = getFieldType(field);
 
-function getValues() {
-  var values = [];
-  var htmlField;
-  var requiredField;
-  for (var key in formConfig) {
-    htmlField = loginForm.elements[key].value;
-    requiredField = formConfig[key].required;
-    values.push(htmlField, requiredField);
-  }
-  return values;
-}
-
-function convertValues(items) {
-  var arrays = [];
-  var size = 2;
-  while (items.length > 0) {
-    arrays.push(items.splice(0, size));
-  }
-  return arrays;
-}
-
-function validateField() {
-  var values = getValues();
-  var valuesArray = convertValues(values);
-  event.preventDefault();
-  for (var i = 0; i < valuesArray.length; i++) {
-    if (valuesArray[i][1] === true && (valuesArray[i][0] !== '' || valuesArray[i][0] !== 'checkbox')) {
-      console.log('hier');
-      return true;
-    } else if (valuesArray[i][1] === false && valuesArray[i][0] !== '') {
-      return true;
-    } else {
-      return false;
+    // Jeder check bricht bei scheitern die Funktion mit return "fehlercode" ab, ansonsten "ok"
+    // required überprüfen
+    if (fieldConfig.required === true) {
+        if (isFilledOut(field) === false) {
+            return 'E_required';
+        }
     }
-  }
+    // nicht required, nicht ausgefüllt -> return true
+    else if (isFilledOut(field) === false) {
+        return 'ok';
+    }
+
+
+    // Datentyp prüfen
+    var dataType = fieldConfig.dataType;
+
+    switch (dataType) {
+        case 'email':
+            if (validateEmail(field.value) === false) {
+                return 'E_email';
+            }
+            break;
+        case 'int':
+            if (validateInteger(field.value) === false) {
+                return 'E_integer';
+            }
+            break;
+        case 'boolean':
+             if (validateBoolean(field.value) === false) {
+                return 'E_boolean';
+            }
+            break;
+    }
+
+    // optionale Attribute prüfen
+
+    return 'ok';
 }
 
-  // Datentyp prüfen
+function getFieldType(field) {
+    // Node Namen in Kleinbuchstaben ermitteln
+    var myType = field.nodeName.toLowerCase();
+    // Inputs geben ihren Typ zurück
+    if (myType === 'input') {
+        return field.type;
+    }
 
-  // optionale Attribute prüfen
+    // Select, textarea geben ihren nodename zurück
+    return myType;
+}
 
-  //console.log(field.name + ' ist ungültig');
-  // return "ok";
+/**
+*   Unabhänging vom Feldtyp wird ermittelt, ob es einen gültigen/ausgefüllten Wert gibt
+*/
+function isFilledOut (field) {
+    var fieldType = getFieldType(field);
+
+    // Einige Felder wie select/checkbox benötigen spezielle Prüfung
+    switch (fieldType) {
+        case 'select':
+            // console.log(field.options[field.selectedIndex].value === field.value);
+            // PRÜFEN: würde vielleicht field.value genügen?
+            if (field.value === '') {
+                return false;
+            } else {
+                return true;
+            }
+            break;
+        case 'checkbox':
+            return field.checked;
+    }
+
+    // Alle anderen Felder prüfen auf Leerstring
+    if (field.value === '') {
+        return false;
+    }
+
+    return true;
+}
+
+function validateEmail(val) {
+    var regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return regEx.test(val);
+}
+
+function validateInteger(val) {
+  var float = parseFloat(val);
+  if (!isNaN(float) && isFinite(float) && float === parseInt(val)) {
+    return true;
+  }
+  return false;
+}
+
+function validateBoolean(val) {
+  return val === true || val === false || val === 0 || val === 1 || val === '1' || val === '0' || val === 'true' || val === 'false';
+}
+
+function addError(field, errorMsg) {
+    var myError = getError(field);
+    myError.innerHTML = errorMsg;
+
+    // Checkboxen (und später Radio Buttons) gesondert behandeln, Fehler nach label
+    var where = field;
+    if (field.type === 'checkbox') {
+        where = document.querySelector('label[for=' + field.id + ']');
+    }
+    where.insertAdjacentElement('afterend', myError);
+}
+
+/**
+*   Wenn noch kein Fehler vorhanden, Element erzeugen, ansonsten vorhandenen
+*   Fehler zurück geben.
+*/
+function getError(field) {
+    // Check, ob error bereits vorhanden ist
+    var nextElement = field.nextElementSibling;
+
+    if (nextElement !== null && nextElement.classList.contains('form-error')) {
+        return nextElement;
+    }
+
+    // Erstellen, falls es noch nicht vorhanden ist
+    var myError = document.createElement('div');
+    myError.className = 'form-error';
+    return myError;
+}
+
+/**
+*   Falls Fehler vorhanden ist, soll er gelöscht werden.
+*/
+function removeError(field) {
+    // Checkboxen müssen ein wenig anders behandelt werden
+    var where = field;
+    if (field.type === 'checkbox') {
+        where = document.querySelector('label[for=' + field.id + ']');
+    }
+    var nextElement = where.nextElementSibling;
+
+    if (nextElement !== null && nextElement.classList.contains('form-error')) {
+        // Kann nur vom Elternelement aus gelöscht werden.
+        nextElement.parentNode.removeChild(nextElement);
+    }
+}
+
+/*
+    Error codes
+    required
+    int
+    float
+    custom
+    email
+    boolean
+    ...
+*/

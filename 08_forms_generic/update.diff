@@ -1,0 +1,701 @@
+diff --git a/08_forms_generic/home_index.html b/08_forms_generic/home_index.html
+deleted file mode 100644
+index b432c17..0000000
+--- a/08_forms_generic/home_index.html
++++ /dev/null
+@@ -1,36 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="de">
+-<head>
+-    <meta charset="UTF-8">
+-    <title>Forms</title>
+-    <link rel="stylesheet" href="css/pure-min.css">
+-    <link rel="stylesheet" href="css/forms.css">
+-</head>
+-<body>
+-<div class="container">
+-    <header class="main-header">
+-        <h1>Generic Forms</h1>
+-    </header>
+-    <main>
+-        <h2>Login</h2>
+-        <form action="" method="post" class="pure-form pure-form-stacked" id="loginForm">
+-          <fieldset>
+-            <label for="userName">User:</label>
+-            <input type="text" name="username" id="userName" placeholder="Username">
+-            <label for="password">Password:</label>
+-            <input type="text" name="password" id="password" placeholder="Password">
+-            <select name="service" id="service">
+-              <option value="">--Select an Option</option>
+-              <option value="polieren">Polieren</option>
+-              <option value="schleifen">Schleifen</option>
+-              <option value="lackieren">Lackieren</option>
+-            </select>
+-            <input type="checkbox" name="agb" value="checkbox" id="agb">I agree<br>
+-            <input type="submit" value="Send" class="pure-button pure-button-primary">
+-          </fieldset>
+-        </form>
+-    </main>
+-</div>
+-<script src="js/home_validation.js"></script>
+-</body>
+-</html>
+diff --git a/08_forms_generic/index.html b/08_forms_generic/index.html
+index 18683be..78ae085 100644
+--- a/08_forms_generic/index.html
++++ b/08_forms_generic/index.html
+@@ -25,7 +25,7 @@
+               <option value="schleifen">Schleifen</option>
+               <option value="lackieren">Lackieren</option>
+             </select>
+-            <input type="checkbox" name="agb" value="checkbox" id="checkbox">I agree<br>
++            <label for="checkbox"><input type="checkbox" name="agb" value="true" id="checkbox">I agree</label><br>
+             <input type="submit" value="Send" class="pure-button pure-button-primary">
+           </fieldset>
+         </form>
+diff --git a/08_forms_generic/js/forms.js b/08_forms_generic/js/forms.js
+index 95c3f4b..b04ee85 100644
+--- a/08_forms_generic/js/forms.js
++++ b/08_forms_generic/js/forms.js
+@@ -1,24 +1,58 @@
+ (function () {
+-  'use strict';
+-  var loginForm = document.getElementById('loginForm');
+-  var fieldNames = Object.keys(formConfig);
++    'use strict';
++    var loginForm = document.getElementById('loginForm');
++    console.log(loginForm);
++    var fieldNames = Object.keys(formConfig);
+ 
+-  loginForm.addEventListener('submit', function(event) {
+-    // zu validierende Felderanzahl des JSON Objects auslesen
+-    var errors = objectLength(formConfig);
+-    // zu validierende Felder auslesen
+-   // var isValid = validateField();
+-    if (validateField()) {
+-      errors--;
+-    }
+-    // werte /selected etc. aus feld holen
+-    // required, falls gesetzt, prüfen
+-    // datentyp prüfen
+-    // optionale prüfungen (maxLength etc.)
+-    // wenn nicht valide, absenden verhindern
+-  });
++    loginForm.addEventListener('submit', submitHandler);
++  
++    function submitHandler(event) {
++        var errors = objectLength(formConfig);
++
++        // Alle zu validierenden Felder auslesen
++        for (var i = 0; i < fieldNames.length; i++) {
++          // Namen des aktuellen Feldes holen
++          var fieldName = fieldNames[i];
++          // Konfigurations-Objekt für das aktuelle Feld holen
++          var fieldConfig = formConfig[fieldName];
++          // Aktuelles Feld aus dem DOM holen
++          var field = loginForm.elements[fieldName];
++          // remove errors for cleanup  
++          removeError(field);
+ 
++          var valid = validateField(field, fieldConfig);
+ 
++          if (valid === 'ok') {
++              errors--;
++              // Fehlermeldungen entfernen, falls vorhanden              
++          }
++          else {
++            var errorMsg;
++            switch(valid) {
++              case 'E_required':
++                errorMsg = fieldName + ' muss ausgefüllt sein';
++                break;
++              case 'E_email':
++                errorMsg = fieldName + ' muss eine email enthalten';
++                break;
++              case 'E_integer':
++                errorMsg = fieldName + ' muss eine Zahl enthalten';
++                break;
++              case 'E_boolean':
++                errorMsg = fieldName + ' muss ein boolean wert sein';
++                break;
++            }
+ 
++            addError(field, errorMsg);
++            // TODO AT HOME:
++            // Fehlermeldungen hinzufügen
++            // Email Validation?
++          }
++        }
+ 
++        // wenn nicht valide, absenden verhindern
++        if (errors !== 0) {
++            event.preventDefault();
++        }
++    }
+ }());
+diff --git a/08_forms_generic/js/home_validation.js b/08_forms_generic/js/home_validation.js
+deleted file mode 100644
+index be02ec2..0000000
+--- a/08_forms_generic/js/home_validation.js
++++ /dev/null
+@@ -1,85 +0,0 @@
+-/*
+- * mithilfe einer konfigurationsdatei soll ein formular validiert werden
+- * error wenn nicht valide
+- * es werden alle fehlerhaften felder mit einem error versehen
+- * abschicken wenn valide
+- */
+-(function() {
+-    'use strict';
+-
+-    // wir schreiben die config nicht in ein pseudo JSON solange wir nciht wissen was JSON ist oder wozu es da ist.
+-    var config = {
+-         "username": {
+-            "id": "userName",
+-            "required": true,
+-            "dataType": "text",
+-            "maxLength": 20
+-         },
+-         "password": {
+-            "id": "password",
+-            "required": true,
+-            "dataType": "password",
+-            "maxLength": 76,
+-            "minLength": 8
+-        },
+-        "service": {
+-            "id": "service",
+-            "required": true,
+-            "dataType": "select",
+-            "multiple": false
+-        },
+-        "agb": {
+-            "id": "agb",
+-            "required": true,
+-            "dataType": "boolean"
+-        }
+-    };
+-
+-    var form = document.querySelector('form');
+-
+-    function init() {
+-        form.addEventListener('submit', submitHandler);
+-    }
+-
+-    function submitHandler(event) {
+-        if (!validate()) {
+-            event.preventDefault();
+-        }
+-    }
+-
+-    function validate() {
+-        for (var key in config) {
+-            var formField = form.querySelector('#' + config[key].id);
+-            validateField(formField);
+-
+-            //if (config[key].required && (!formField.value || (formField.type === 'checkbox' && !formField.checked))) {
+-            //   showError(formField, 'field ' + key + ' is required');
+-            //      }
+-        }
+-        return !form.querySelectorAll('.form-error').length;
+-    }
+-
+-    // TODO connect this function
+-    function validateField(formField) {
+-        var fieldConfig = getFieldConfig(formField.id);
+-    }
+-
+-    function getFieldConfig(id) {
+-        for (var key in config) {
+-            if (config[key].id === id) {
+-                return config[key];
+-            }
+-        }
+-    }
+-
+-    function showError(formField, msg) {
+-        var errorNode = document.createElement('p');
+-        errorNode.className = 'form-error';
+-        errorNode.innerHTML = msg;
+-        formField.parentNode.insertBefore(errorNode, formField);
+-    }
+-
+-    init();
+-
+-})();
+-
+diff --git a/08_forms_generic/js/trainer_forms.js b/08_forms_generic/js/trainer_forms.js
+deleted file mode 100644
+index 8e038b7..0000000
+--- a/08_forms_generic/js/trainer_forms.js
++++ /dev/null
+@@ -1,40 +0,0 @@
+-(function () {
+-    'use strict';
+-    var loginForm = document.getElementById('loginForm');
+-    var fieldNames = Object.keys(formConfig);
+-
+-    for (var f in formConfig) {
+-        console.dir(f);
+-    }
+-
+-    loginForm.addEventListener('submit', function (ev) {
+-        var errors = objectLength(formConfig);
+-
+-        // Alle zu validierenden Felder auslesen
+-        for (var i = 0; i < fieldNames.length; i++) {
+-            // Namen des aktuellen Feldes holen
+-            var fieldName = fieldNames[i];
+-            // Konfigurations-Objekt für das aktuelle Feld holen
+-            var fieldConfig = formConfig[fieldName];
+-            // Aktuelles Feld aus dem DOM holen
+-            var field = loginForm.elements[fieldName];
+-
+-            var valid = validateField(field, fieldConfig);
+-
+-            if (valid === 'ok') {
+-                errors--;
+-                // Fehlermeldungen entfernen, falls vorhanden
+-            }
+-            else {
+-              // TODO AT HOME:
+-              // Fehlermeldungen hinzufügen
+-              // Email Validation?
+-            }
+-        }
+-
+-        // wenn nicht valide, absenden verhindern
+-        if (errors !== 0) {
+-            ev.preventDefault();
+-        }
+-    });
+-}());
+diff --git a/08_forms_generic/js/trainer_validation.js b/08_forms_generic/js/trainer_validation.js
+deleted file mode 100644
+index e6b7b22..0000000
+--- a/08_forms_generic/js/trainer_validation.js
++++ /dev/null
+@@ -1,162 +0,0 @@
+-/**
+-*   Gibt die Anzahl der Members eines Objekts zurück
+-*/
+-function objectLength(obj){
+-    return  Object.keys(obj).length;
+-}
+-
+-/**
+-*   Ein einzelnes Formfeld nach den Kriterien aus fieldConfig validieren
+-*/
+-function validateField(field, fieldConfig) {
+-    var myType = getFieldType(field);
+-
+-    // Jeder check bricht bei scheitern die Funktion mit return "fehlercode" ab, ansonsten "ok"
+-    // required überprüfen
+-    if (fieldConfig.required === true) {
+-        if (isFilledOut(field) === false) {
+-            return 'E_Required';
+-        }
+-    }
+-    // nicht required, nicht ausgefüllt -> return true
+-    else if (isFilledOut(field) === false) {
+-        return 'ok';
+-    }
+-
+-
+-    // Datentyp prüfen
+-    var dataType = fieldConfig.dataType;
+-
+-    switch (dataType) {
+-        case 'email':
+-            if (validateEmail(field.value) === false) {
+-                return 'E_email';
+-            }
+-            break;
+-        case 'int':
+-            if (validateInteger(field.value) === false) {
+-                return 'E_integer';
+-            }
+-            break;
+-        case 'boolean':
+-             if (validateBoolean(field.value) === false) {
+-                return 'E_boolean';
+-            }
+-            break;
+-    }
+-
+-    // optionale Attribute prüfen
+-
+-    return 'ok';
+-}
+-
+-function getFieldType(field) {
+-    // Node Namen in Kleinbuchstaben ermitteln
+-    var myType = field.nodeName.toLowerCase();
+-    // Inputs geben ihren Typ zurück
+-    if (myType === 'input') {
+-        return field.type;
+-    }
+-
+-    // Select, textarea geben ihren nodename zurück
+-    return myType;
+-}
+-
+-/**
+-*   Unabhänging vom Feldtyp wird ermittelt, ob es eine gültigen/ausgefüllten Wert gibt
+-*/
+-function isFilledOut (field) {
+-    var fieldType = getFieldType(field);
+-
+-    // Einige Felder wie select/checkbox benötigen spezielle Prüfung
+-    switch (fieldType) {
+-        case 'select':
+-            // PRÜFEN: würde vielleicht field.value genügen?
+-            if (field.options[field.selectedIndex].value === '') {
+-                return false;
+-            }
+-            else {
+-                return true;
+-            }
+-            break;
+-        case 'checkbox':
+-            return field.checked;
+-    }
+-
+-    // Alle anderen Felder prüfen auf Leerstring
+-    if (field.value === '') {
+-        return false;
+-    }
+-
+-    return true;
+-}
+-
+-function validateEmail(val) {
+-
+-}
+-
+-function validateInteger(val) {
+-
+-}
+-
+-function validateBoolean(val) {
+-
+-}
+-
+-function addError(field, errorMsg) {
+-    var myError = getError(elem);
+-    myError.innerHTML = errorMsg;
+-
+-    // Checkboxen (und später Radio Buttons) gesondert behandeln, Fehler nach label
+-    var where = elem;
+-    if (field.type === 'checkbox') {
+-        where = document.querySelector('label[for=' + field.id + ']');
+-    }
+-    where.insertAdjacentElement('afterend', myError);
+-}
+-
+-/**
+-*   Wenn noch kein Fehler vorhanden, Element erzeugen, ansonsten vorhandenen
+-*   Fehler zurück geben.
+-*/
+-function getError(field) {
+-    // Check, ob error bereits vorhanden ist
+-    var nextElement = field.nextElementSibling;
+-
+-    if (nextElement !== null && nextElement.classList.contains('form-error')) {
+-        return nextElement;
+-    }
+-
+-    // Erstellen, falls es noch nicht vorhanden ist
+-    var myError = document.createElement('div');
+-    myError.className = 'form-error';
+-    return myError;
+-}
+-
+-/**
+-*   Falls Fehler vorhanden ist, soll er gelöscht werden.
+-*/
+-function removeError(field) {
+-    // Checkboxen müssen ein wenig anders behandelt werden
+-    var where = field;
+-    if (field.type === 'checkbox') {
+-        where = document.querySelector('label[for=' + field.id + ']');
+-    }
+-    var nextElement = where.nextElementSibling;
+-
+-    if (nextElement !== null && nextElement.classList.contains('form-error')) {
+-        // Kann nur vom Elternelement aus gelöscht werden.
+-        nextElement.parentNode.removeChild(nextElement);
+-    }
+-}
+-
+-/*
+-    Error codes
+-    required
+-    int
+-    float
+-    custom
+-    email
+-    boolean
+-    ...
+-*/
+diff --git a/08_forms_generic/js/validation.js b/08_forms_generic/js/validation.js
+index 95f9a72..7d1100b 100644
+--- a/08_forms_generic/js/validation.js
++++ b/08_forms_generic/js/validation.js
+@@ -1,53 +1,167 @@
+-/*
++/**
++*   Gibt die Anzahl der Members eines Objekts zurück
++*/
++function objectLength(obj){
++    return  Object.keys(obj).length;
++}
+ 
++/**
++*   Ein einzelnes Formfeld nach den Kriterien aus fieldConfig validieren
+ */
+-// Gibt Anzahl der Member eines Objekts zurück
+-function objectLength(object) {
+-  return Object.keys(object).length;
++function validateField(field, fieldConfig) {
++    var myType = getFieldType(field);
++
++    // Jeder check bricht bei scheitern die Funktion mit return "fehlercode" ab, ansonsten "ok"
++    // required überprüfen
++    if (fieldConfig.required === true) {
++        if (isFilledOut(field) === false) {
++            return 'E_required';
++        }
++    }
++    // nicht required, nicht ausgefüllt -> return true
++    else if (isFilledOut(field) === false) {
++        return 'ok';
++    }
++
++
++    // Datentyp prüfen
++    var dataType = fieldConfig.dataType;
++
++    switch (dataType) {
++        case 'email':
++            if (validateEmail(field.value) === false) {
++                return 'E_email';
++            }
++            break;
++        case 'int':
++            if (validateInteger(field.value) === false) {
++                return 'E_integer';
++            }
++            break;
++        case 'boolean':
++             if (validateBoolean(field.value) === false) {
++                return 'E_boolean';
++            }
++            break;
++    }
++
++    // optionale Attribute prüfen
++
++    return 'ok';
+ }
+ 
+-// Ein einzelnes Formfeld kann nach den Kriterien aus fieldConfig variieren.
++function getFieldType(field) {
++    // Node Namen in Kleinbuchstaben ermitteln
++    var myType = field.nodeName.toLowerCase();
++    // Inputs geben ihren Typ zurück
++    if (myType === 'input') {
++        return field.type;
++    }
+ 
+-function getValues() {
+-  var values = [];
+-  var htmlField;
+-  var requiredField;
+-  for (var key in formConfig) {
+-    htmlField = loginForm.elements[key].value;
+-    requiredField = formConfig[key].required;
+-    values.push(htmlField, requiredField);
+-  }
+-  return values;
++    // Select, textarea geben ihren nodename zurück
++    return myType;
+ }
+ 
+-function convertValues(items) {
+-  var arrays = [];
+-  var size = 2;
+-  while (items.length > 0) {
+-    arrays.push(items.splice(0, size));
+-  }
+-  return arrays;
+-}
+-
+-function validateField() {
+-  var values = getValues();
+-  var valuesArray = convertValues(values);
+-  event.preventDefault();
+-  for (var i = 0; i < valuesArray.length; i++) {
+-    if (valuesArray[i][1] === true && (valuesArray[i][0] !== '' || valuesArray[i][0] !== 'checkbox')) {
+-      console.log('hier');
+-      return true;
+-    } else if (valuesArray[i][1] === false && valuesArray[i][0] !== '') {
+-      return true;
+-    } else {
+-      return false;
++/**
++*   Unabhänging vom Feldtyp wird ermittelt, ob es einen gültigen/ausgefüllten Wert gibt
++*/
++function isFilledOut (field) {
++    var fieldType = getFieldType(field);
++
++    // Einige Felder wie select/checkbox benötigen spezielle Prüfung
++    switch (fieldType) {
++        case 'select':
++            // console.log(field.options[field.selectedIndex].value === field.value);
++            // PRÜFEN: würde vielleicht field.value genügen?
++            if (field.value === '') {
++                return false;
++            } else {
++                return true;
++            }
++            break;
++        case 'checkbox':
++            return field.checked;
++    }
++
++    // Alle anderen Felder prüfen auf Leerstring
++    if (field.value === '') {
++        return false;
+     }
++
++    return true;
++}
++
++function validateEmail(val) {
++    var regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
++    return regEx.test(val);
++}
++
++function validateInteger(val) {
++  var float = parseFloat(val);
++  if (!isNaN(float) && isFinite(float) && float === parseInt(val)) {
++    return true;
+   }
++  return false;
+ }
+ 
+-  // Datentyp prüfen
++function validateBoolean(val) {
++  return val === true || val === false || val === 0 || val === 1 || val === '1' || val === '0' || val === 'true' || val === 'false';
++}
++
++function addError(field, errorMsg) {
++    var myError = getError(field);
++    myError.innerHTML = errorMsg;
+ 
+-  // optionale Attribute prüfen
++    // Checkboxen (und später Radio Buttons) gesondert behandeln, Fehler nach label
++    var where = field;
++    if (field.type === 'checkbox') {
++        where = document.querySelector('label[for=' + field.id + ']');
++    }
++    where.insertAdjacentElement('afterend', myError);
++}
++
++/**
++*   Wenn noch kein Fehler vorhanden, Element erzeugen, ansonsten vorhandenen
++*   Fehler zurück geben.
++*/
++function getError(field) {
++    // Check, ob error bereits vorhanden ist
++    var nextElement = field.nextElementSibling;
++
++    if (nextElement !== null && nextElement.classList.contains('form-error')) {
++        return nextElement;
++    }
+ 
+-  //console.log(field.name + ' ist ungültig');
+-  // return "ok";
++    // Erstellen, falls es noch nicht vorhanden ist
++    var myError = document.createElement('div');
++    myError.className = 'form-error';
++    return myError;
++}
++
++/**
++*   Falls Fehler vorhanden ist, soll er gelöscht werden.
++*/
++function removeError(field) {
++    // Checkboxen müssen ein wenig anders behandelt werden
++    var where = field;
++    if (field.type === 'checkbox') {
++        where = document.querySelector('label[for=' + field.id + ']');
++    }
++    var nextElement = where.nextElementSibling;
++
++    if (nextElement !== null && nextElement.classList.contains('form-error')) {
++        // Kann nur vom Elternelement aus gelöscht werden.
++        nextElement.parentNode.removeChild(nextElement);
++    }
++}
++
++/*
++    Error codes
++    required
++    int
++    float
++    custom
++    email
++    boolean
++    ...
++*/
+diff --git a/08_forms_generic/trainer_index.html b/08_forms_generic/trainer_index.html
+deleted file mode 100644
+index cc49be4..0000000
+--- a/08_forms_generic/trainer_index.html
++++ /dev/null
+@@ -1,43 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="de">
+-<head>
+-    <meta charset="UTF-8">
+-    <title>Formulare</title>
+-    <link rel="stylesheet" href="css/pure-min.css">
+-    <link rel="stylesheet" href="css/formulare.css">
+-</head>
+-<body>
+-<div class="container">
+-    <header class="main-header">
+-        <h1>Formulare und Javascript</h1>
+-    </header>
+-    <main>
+-        <h2>Anmeldung</h2>
+-        <form action="" method="post" class="pure-form pure-form-stacked" id="loginForm">
+-            <fieldset>
+-                <label for="userName">Benutzername:</label>
+-                <input type="text" name="username" id="userName" placeholder="Benutzername">
+-
+-                <label for="password">Passwort:</label>
+-                <input type="password" name="password" id="password">
+-
+-                <label for="service">Unser Service:</label>
+-                <select name="service" id="service">
+-                    <option value="">==== Service wählen ====</option>
+-                    <option value="polieren">Polieren</option>
+-                    <option value="schleifen">Schleifen</option>
+-                    <option value="lackieren">Lackieren</option>
+-                </select>
+-
+-                <label for="agb" class="pure-checkbox"><input type="checkbox" name="agb" id="agb" value="ja" > AGB akzeptieren</label>
+-
+-                <input type="submit" value="Senden" class="pure-button pure-button-primary">
+-            </fieldset>
+-        </form>
+-    </main>
+-</div>
+-<script src="js/form-config.js"></script>
+-<script src="js/trainer_validation.js"></script>
+-<script src="js/trainer_forms.js"></script>
+-</body>
+-</html>
