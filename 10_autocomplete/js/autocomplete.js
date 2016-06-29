@@ -42,18 +42,20 @@
         }*/
 
     function createNodes(jsonResponse) {
-        var ulNode = document.createElement('ul');
-        ulNode.className = 'search-result';
+        var ulNode = fieldWrapper.querySelector('ul.search-result');
+        if (!ulNode) {
+            ulNode = document.createElement('ul');
+            ulNode.className = 'search-result';
+            fieldWrapper.appendChild(ulNode);
+        }
+        ulNode.innerHTML = '';
         for (var i = 0; i < jsonResponse.length; i++) {
             var liNode = document.createElement('li');
             var text = document.createTextNode(jsonResponse[i]);
             liNode.appendChild(text);
             ulNode.appendChild(liNode);
         }
-        fieldWrapper.appendChild(ulNode);
     }
-
-
 
     init();
 
