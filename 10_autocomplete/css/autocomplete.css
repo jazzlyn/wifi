@@ -1,0 +1,33 @@
+body {
+    padding: 2em 1em;
+}
+
+.field-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.search-result {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #999;
+}
+
+.search-result li {
+    line-height: 1.8;
+    padding: 0 0.5em;
+}
+
+.search-result li:nth-child(even) {
+    background-color: #EAEAEA;
+}
+
+button[type=submit] {
+    display: block;
+}
