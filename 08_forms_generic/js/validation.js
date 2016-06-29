@@ -10,7 +10,6 @@ function objectLength(obj){
 */
 function validateField(field, fieldConfig) {
     var myType = getFieldType(field);
-
     // Jeder check bricht bei scheitern die Funktion mit return "fehlercode" ab, ansonsten "ok"
     // required überprüfen
     if (fieldConfig.required === true) {
@@ -22,11 +21,8 @@ function validateField(field, fieldConfig) {
     else if (isFilledOut(field) === false) {
         return 'ok';
     }
-
-
     // Datentyp prüfen
     var dataType = fieldConfig.dataType;
-
     switch (dataType) {
         case 'email':
             if (validateEmail(field.value) === false) {
@@ -44,9 +40,7 @@ function validateField(field, fieldConfig) {
             }
             break;
     }
-
     // optionale Attribute prüfen
-
     return 'ok';
 }
 
@@ -57,17 +51,12 @@ function getFieldType(field) {
     if (myType === 'input') {
         return field.type;
     }
-
     // Select, textarea geben ihren nodename zurück
     return myType;
 }
-
-/**
-*   Unabhänging vom Feldtyp wird ermittelt, ob es einen gültigen/ausgefüllten Wert gibt
-*/
+//Unabhänging vom Feldtyp wird ermittelt, ob es einen gültigen/ausgefüllten Wert gibt
 function isFilledOut (field) {
     var fieldType = getFieldType(field);
-
     // Einige Felder wie select/checkbox benötigen spezielle Prüfung
     switch (fieldType) {
         case 'select':
@@ -82,12 +71,10 @@ function isFilledOut (field) {
         case 'checkbox':
             return field.checked;
     }
-
     // Alle anderen Felder prüfen auf Leerstring
     if (field.value === '') {
         return false;
     }
-
     return true;
 }
 
@@ -97,15 +84,15 @@ function validateEmail(val) {
 }
 
 function validateInteger(val) {
-  var float = parseFloat(val);
-  if (!isNaN(float) && isFinite(float) && float === parseInt(val)) {
-    return true;
-  }
-  return false;
-}
+      var float = parseFloat(val);
+      if (!isNaN(float) && isFinite(float) && float === parseInt(val)) {
+        return true;
+      }
+      return false;
+    }
 
 function validateBoolean(val) {
-  return val === true || val === false || val === 0 || val === 1 || val === '1' || val === '0' || val === 'true' || val === 'false';
+    return val === 'true';
 }
 
 function addError(field, errorMsg) {
@@ -119,11 +106,8 @@ function addError(field, errorMsg) {
     }
     where.insertAdjacentElement('afterend', myError);
 }
-
-/**
-*   Wenn noch kein Fehler vorhanden, Element erzeugen, ansonsten vorhandenen
-*   Fehler zurück geben.
-*/
+// Wenn noch kein Fehler vorhanden, Element erzeugen, ansonsten vorhandenen
+// Fehler zurück geben.
 function getError(field) {
     // Check, ob error bereits vorhanden ist
     var nextElement = field.nextElementSibling;
@@ -131,16 +115,12 @@ function getError(field) {
     if (nextElement !== null && nextElement.classList.contains('form-error')) {
         return nextElement;
     }
-
     // Erstellen, falls es noch nicht vorhanden ist
     var myError = document.createElement('div');
     myError.className = 'form-error';
     return myError;
 }
-
-/**
-*   Falls Fehler vorhanden ist, soll er gelöscht werden.
-*/
+// Falls Fehler vorhanden ist, soll er gelöscht werden.
 function removeError(field) {
     // Checkboxen müssen ein wenig anders behandelt werden
     var where = field;
@@ -154,14 +134,3 @@ function removeError(field) {
         nextElement.parentNode.removeChild(nextElement);
     }
 }
-
-/*
-    Error codes
-    required
-    int
-    float
-    custom
-    email
-    boolean
-    ...
-*/
