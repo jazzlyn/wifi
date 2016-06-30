@@ -7,10 +7,11 @@
 
     function init() {
         search.addEventListener('keyup', inputHandler);
+       // search.addEventListener('focus', focusHandler);
     }
 
     function inputHandler(event) {
-        var url = 'js/ac.json';
+        var url = 'countries.php';
         var xhr = new XMLHttpRequest(); // state 0 object wird erstellt
         var value = this.value;
         xhr.onreadystatechange = stateChanged; // trigger, wenn sich der Status ändert
@@ -48,7 +49,8 @@
             ulNode.appendChild(liNode);
         }
     }
-
+    // focus,
+    // mit pfeiltasten durchgehen und mit enter bestätigen. active class, if not, first element. then next sibling. is it last element? if it is, give it the first element back. enter key sets value of input field. clear ulnode. keycodes. focus handler on input field, listens to clickevent
     init();
 
 
