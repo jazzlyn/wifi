@@ -49,8 +49,7 @@
             ulNode.appendChild(liNode);
         }
     }
-    // focus,
-    // mit pfeiltasten durchgehen und mit enter bestätigen. active class, if not, first element. then next sibling. is it last element? if it is, give it the first element back. enter key sets value of input field. clear ulnode. keycodes. focus handler on input field, listens to clickevent
+
     init();
 
 
