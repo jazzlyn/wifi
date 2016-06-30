@@ -18,28 +18,19 @@
         xhr.send();
     }
 
+    function clickHandler(event) {
+        var newValue = this.innerText || this.textContent;
+        search.value = newValue;
+        search.nextElementSibling.innerHTML = '';
+
+    }
+
     function stateChanged(event) {
         if (this.readyState === 4 && this.status === 200) {
             var jsonResponse = JSON.parse(this.response);
             createNodes(jsonResponse);
         }
     }
-
-    /*
-    function createAutoComplete(config) {
-        if (autoComplete === undefined) {
-            autoComplete = document.createElement('ul');
-            autoComplete.classList.add('search-result');
-        }
-        // Prüfen, ob es bereits lis gibt, ggf. löschen
-        var lis = autoComplete.getElementsByTagName('li');
-                for(var i = 0; i < lis.length; i++) {
-            autoComplete.removeChild(lis[i]);
-        }
-        for (var j = 0; j < config.length; j++) {
-            // Elemente erstellen
-
-        }*/
 
     function createNodes(jsonResponse) {
         var ulNode = fieldWrapper.querySelector('ul.search-result');
@@ -53,6 +44,7 @@
             var liNode = document.createElement('li');
             var text = document.createTextNode(jsonResponse[i]);
             liNode.appendChild(text);
+            liNode.addEventListener('click', clickHandler);
             ulNode.appendChild(liNode);
         }
     }

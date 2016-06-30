@@ -24,8 +24,16 @@ body {
     padding: 0 0.5em;
 }
 
+.search-result li:hover {
+    cursor: pointer;
+}
+
 .search-result li:nth-child(even) {
     background-color: #EAEAEA;
+}
+
+.pure-form-stacked input[type=text] {
+    margin: 0;
 }
 
 button[type=submit] {
