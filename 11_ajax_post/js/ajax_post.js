@@ -22,13 +22,13 @@
             var postValues = {username: username.value, password: password.value};
             xhr.send(JSON.stringify(postValues));
         } else {
-            console.log('nicht ausgefüllt');
+            console.log('not filled');
         }
     }
 
     function stateComplete() {
         if (event.target.readyState === 4 && event.target.status === 200) {
-            console.log('ausgefüllt');
+            console.log('filled');
         }
     }
 
