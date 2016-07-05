@@ -1,8 +1,5 @@
 (function() {
-  'use strict';
-/*
-erstelle ein Formular das einen em tipp abgeben lässt für den gewinner des finales (select list). hat der user ein land ausgewählt wird der button “tipp abschicken” aktiviert, drückt der user dann da drauf kommt ein dialog: Wir Drücken dir die Daumen das <name der ausgewählten Mannschaft> die em 2016 in Frankreich gewinnt, anstelel des forms. ab hier kann der user nichts mehr machen.
-*/
+    'use strict';
     var form = document.querySelector('form');
     //var select = form.querySelector('select');
     var select = document.getElementById('country');
@@ -10,7 +7,8 @@ erstelle ein Formular das einen em tipp abgeben lässt für den gewinner des fin
 
     function init() {
         disableSubmit();
-        submitButton.addEventListener('click', submitHandler);
+        select.addEventListener('change', changeHandler);
+        form.addEventListener('submit', submitHandler);
     }
 
     function enableSubmit() {
@@ -21,21 +19,22 @@ erstelle ein Formular das einen em tipp abgeben lässt für den gewinner des fin
         submitButton.setAttribute('disabled', 'disabled');
     }
 
-    function submitHandler(event) {
-
-    }
-  /*
-            if (!select.value === '') {
-            enableSubmit;
+    function changeHandler(event) {
+        if (select.value !== '') {
+            enableSubmit();
         } else {
-            event.preventDefault();
+            disableSubmit();
         }
-*/
+    }
+
+    function submitHandler(event) {
+        event.preventDefault();
+        dialogBox();
+    }
+
     function dialogBox() {
         var countrySelect = select.value;
-        return alert = ('Good Luck! Maybe ' + countrySelect + 'will win!');
-        // create dialog box with selected country and
-        // 'Good Luck! Maybe ' + countrySelect + 'will win!'
+        form.parentNode.innerHTML = 'Good Luck! Maybe ' + countrySelect + ' will win!';
     }
 
   init();
