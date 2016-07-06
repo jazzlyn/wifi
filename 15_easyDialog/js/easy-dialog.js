@@ -97,11 +97,10 @@
             createCloseButton
         */
     };
-}());
-
-var dlg = new EasyDialog({title: 'Newsletter bestellen', content: 'Bestell gefälligst!', x: 150});
 
 })();
+
+var dlg = new EasyDialog({title: 'Newsletter bestellen', content: 'Bestell gefälligst!', x: 150});
 
 /*
 what easy dialog should do:
