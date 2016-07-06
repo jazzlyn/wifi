@@ -28,6 +28,10 @@ body {
     cursor: pointer;
 }
 
+.search-result li.active {
+    border: 1px solid red;
+}
+
 .search-result li:nth-child(even) {
     background-color: #EAEAEA;
 }
