@@ -87,4 +87,25 @@
     Urukhai1.o1();
     Urukhai.f1();
 
+
+
+    /* Bad practice */
+    var arr1 = new Array('Hans', 'Pepi', 'Uri');
+
+    Array.prototype.showAll = function() {
+        var all = 'Alle: ';
+        var trenner = '';
+        for (var i = 0; i < this.length; i++) {
+            all += trenner + this[i];
+            trenner = ', ';
+        }
+        return all;
+    };
+
+    console.log(arr1);
+    console.log( arr1.showAll() );
+
+    var arr2 = new Array(3, 5, 2,7, 120);
+    console.log( arr2.showAll() );
+
 })();
