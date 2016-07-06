@@ -1,5 +1,0 @@
-read about prototype
-create a prototype with methods and a few objects
-
-in autocomplete units (purejs and jquery)
-// focus, with arrow keys navigate through search queries and confirm with enter key. create active class, if not, first element. then next sibling. is it last element? if it is, give it the first element back. enter key sets value of input field. clear ulnode. keycodes. focus handler on input field, listens to clickevent

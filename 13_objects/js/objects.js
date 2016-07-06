@@ -12,7 +12,6 @@
             // Langform: this.position.x = this.position.x + x;
             this.position.x += x;
             this.position.y += y;
-            console.log("x: " + this.position.x + " y: " + this.position.y);
         },
         fight: function(enemy) {
         }
@@ -30,7 +29,6 @@
     obj1.area = function() {
         return this.h * this.w;
     }
-
 
     /********** eigene Objekte mit Konstruktor erstellen ******/
     var Orc = function() {

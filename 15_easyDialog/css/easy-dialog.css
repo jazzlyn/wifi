@@ -1,0 +1,26 @@
+html, body {
+    height: 100.5%;
+}
+#overlay {
+    /* fixed bleibt an derselben Position, auch wenn gescrollt wird. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+#easyDialog {
+    position: absolute;
+    /* In der Mitte positionieren anhand der linken Ecke. */
+    top: 50%;
+    left: 50%;
+    /* Um die Hälfte der Breite/Höhe verschieben. */
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 40%;
+    min-width: 320px;
+    min-height: 320px;
+    border-radius: 8px;
+    background-color: white;
+}
