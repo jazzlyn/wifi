@@ -12,7 +12,6 @@
             // Langform: this.position.x = this.position.x + x;
             this.position.x += x;
             this.position.y += y;
-            console.log("x: " + this.position.x + " y: " + this.position.y);
         },
         fight: function(enemy) {
         }
@@ -99,29 +98,4 @@
         });
 
     }
-    /*************** Prototypes ***************/
-
-    var Car = function(name, year, color, kW) {
-        this.name = name;
-        this.year = year;
-        this.color = color;
-        this.kW = kW;
-    };
-
-    Car.prototype.getPS = function() {
-        return parseInt(this.kW * 1.36);
-    };
-
-    var golf = new Car('VW Golf 3', 1998, 'blue', 66);
-    var golfPS = golf.getPS();
-    var sandero = new Car('Dacia Sandero', 2016, 'red', 55);
-    var sanderoPS = sandero.getPS();
-    var veyron = new Car('Bugatti Veyron', 2010, 'black', 800);
-    var veyronPS = veyron.getPS();
-
-    console.log(golf);
-    console.log(golfPS);
-    console.log(sanderoPS);
-    console.log(veyronPS);
-
 })();
