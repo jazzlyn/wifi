@@ -1,0 +1,15 @@
+easy dialog
+
+* was passiert, wenn mehr als ein easy dialog erstellt werden. wie werden sie auf der seite angeordnet?
+
+* bei open close eine funktion aus config (von außen) aufrufen.
+console.log ausgeben (call/apply)
+
+* nicht modale dialoge zulassen (kein overlay) -> alert
+
+* neues modul schreiben:
+    accordion
+    tabs
+    
+* mockup vom dashboard erstellen
+    pencil yaourt mockup program

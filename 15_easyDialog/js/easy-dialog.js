@@ -1,79 +1,139 @@
 (function() {
     'use strict';
     window.EasyDialog = function(config) {
-        // Best practice für änderlichen Scope von weiteren Funktionen
+        // Best practice für veränderbaren Scope von weiteren Funktionen
         var that = this;
 
-        // My Attributes
+        // Attributes
         that.overlay;
+        that.easyDialog;
+        that.closeButton;
         that.titleBar;
-        that.modal;
+        that.content;
         that.contentUrl;
         that.contentLoaded = Empty;
         that.options = {};
+        that.isOpen = false;
 
         function Empty(){};
 
         var defaults = {
+            theme: 'easy-bright',
             title: 'Dialog',
-            className: 'modal-dialog',
             content: '',
+            contentUrl: '',
             maxWidth: '90%',
             minWidth: '320px',
             maxHeight: '90%',
             minHeight: '320px',
             height: '50%',
             width: '50%',
-            overlay: true
+            overlay: true,
+            autoOpen: true
         };
-        // initialize options
-        /*
-            Jede Funktion besitzt ein Array namens Arguments. Über dieses kann
-            indiziert auf mitgegebene Parameter (im englischen arguments) zugegriffen
-            werden.
-        */
-        if (arguments.length > 0  && typeof arguments[0] === 'object') {
+        // merges default parameters with customized into one object
+        if (config !==  undefined  && typeof config === 'object') {
             that.options = extendDefaults(defaults, config);
+        } else {
+            that.options = defaults;
         }
-
         /**
-         * @brief Öffnet den Dialog
+         * @brief Opens the dialog
          */
         that.open = function() {
-
+            if (that.isOpen === false) {
+                document.body.appendChild(that.overlay);
+                document.body.appendChild(that.easyDialog);
+                that.isOpen = true;
+            }
         };
-
         /**
-         * @brief Schließt den Dialog
-         * @param [in|out] type parameter_name Parameter description.
-         * @param [in|out] type parameter_name Parameter description.
-         * @return Description of returned value.
+         * @brief Closes the dialog
          */
-        that.close = function() {
-
+        that.close = function(event) {
+            if (that.isOpen) {
+                document.body.removeChild(that.overlay);
+                document.body.removeChild(that.easyDialog);
+                that.isOpen = false;
+            }
         };
-
         /**
          * @brief Create DOM Elements
          */
         function createEasyDialog () {
+            // create overlay and give class
+            var overlay = document.createElement('div');
+            overlay.className = 'ed-overlay'
+            that.overlay = overlay;
 
+            // create easydialog and give class
+            var easyDialog = document.createElement('div');
+            easyDialog.classList.add('easy-dialog', that.options.theme);
+            easyDialog.id = 'easyDialog';
+            that.easyDialog = easyDialog;
+
+            // create close button, give class and append to easy dialog
+            var closeButton = document.createElement('a');
+            closeButton.className = 'ed-close-button';
+            closeButton.href = '#';
+            closeButton.innerHTML = "&times;";
+            easyDialog.appendChild(closeButton);
+            that.closeButton  = closeButton;
+
+            // add EventListener to close button
+            closeButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                that.close();
+            });
+
+            // create title bar and append to easy dialog
+            var titleBar = document.createElement('h1');
+            titleBar.className = 'ed-title-bar';
+            titleBar.innerHTML = that.options.title;
+            easyDialog.appendChild(titleBar);
+            that.titleBar = titleBar;
+
+            // create content and append to easy dialog
+            var content = document.createElement('p');
+            content.className = 'ed-content';
+            content.innerHTML = that.options.content;
+            easyDialog.appendChild(content);
+            that.content = content;
+
+            // get content if AJAX url is set
+            if (that.options.contentUrl) {
+                loadContent(that.options.contentUrl)
+            } else {
+                writeContent(that.options.content);
+            }
+            // append easy dialog and overlay to body
+            if (that.options.autoOpen) {
+                that.open();
+            }
         };
 
         /**
          * @brief Load content through AJAX
          */
         function loadContent () {
-
+            var url = that.options.contentUrl;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = stateChanged;
+            xhr.open('GET', url);
+            xhr.send();
         };
 
+        function stateChanged(event) {
+            if (event.currentTarget.readyState === 4 && event.currentTarget.status === 200) {
+                writeContent();
+            }
+        }
         /**
          * @brief write into content
          */
         function writeContent () {
-
+            that.content.innerHTML = event.currentTarget.response;
         };
-
         /**
          * @brief merge two config objects.
          * @param Object source Default config.
@@ -90,36 +150,19 @@
             return source
         }
 
-        /*
-            createContainer
-            crateTitle
-            createContent
-            createCloseButton
-        */
+        /* permanent calls */
+        createEasyDialog();
     };
 
 })();
 
-var dlg = new EasyDialog({title: 'Newsletter bestellen', content: 'Bestell gefälligst!', x: 150});
+var dlg = new EasyDialog({
+    title: 'Newsletter bestellen',
+    content: 'Bestell gefälligst!',
+    contentUrl: 'content.html',
+    x: 150});
 
-/*
-what easy dialog should do:
-
-- open/initialize()
-
-- close
-
-- create easy dialog
-    - createcontainer
-    - createtitle
-    - createcontent
-    - createclosebutton
-- load content
-- write content
-- callbacks
-
-- object {defaults}
-
-
-Callbacks sind Funktionen die durch Ereignisse u.ä. aufgerufen werden. Callbacks werden nie von meiner Applikation ausgeführt.
-*/
+var dialogTrigger = document.getElementById('dialogTrigger');
+dialogTrigger.addEventListener('click', function(event){
+    dlg.open();
+});

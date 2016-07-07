@@ -1,16 +1,10 @@
 html, body {
     height: 100.5%;
 }
-#overlay {
-    /* fixed bleibt an derselben Position, auch wenn gescrollt wird. */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-}
 #easyDialog {
+
+}
+.easy-dialog {
     position: absolute;
     /* In der Mitte positionieren anhand der linken Ecke. */
     top: 50%;
@@ -23,4 +17,55 @@ html, body {
     min-height: 320px;
     border-radius: 8px;
     background-color: white;
+    transition: transform 0.8s ease;
+    z-index: 1;
+}
+.ed-overlay {
+    /* fixed bleibt an derselben Position, auch wenn gescrollt wird. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.easy-dialog .ed-close-button {
+    float: right;
+    display: block;
+    border: 1px solid whitesmoke;
+    color: black;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 2rem;
+    text-decoration: none;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    font-weight: bold;
+    background-color: whitesmoke;
+    transition: background-color 0.3s;
+
+}
+.easy-dialog.easy-bright {
+    color: grey;
+    background-color: white;
+}
+.easy-dialog.easy-bright .ed-close-button {
+}
+.easy-dialog.easy-dark {
+    color: white;
+    background-color: grey;
+}
+.easy-dialog.easy-dark .ed-close-button {
+}
+.easy-dialog .ed-title-bar,
+.easy-dialog .ed-content {
+    /*
+        rem orientiert sich an der Grundschriftgröße des Dokuments (default: 16px)
+        1 rem = 100% der Grundschriftgröße, 0.8rem wären somit 80% der Schriftgröße
+    */
+    padding: 0 1rem;
 }
