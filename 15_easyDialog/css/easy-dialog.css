@@ -1,9 +1,6 @@
 html, body {
     height: 100.5%;
 }
-#easyDialog {
-
-}
 .easy-dialog {
     position: absolute;
     /* In der Mitte positionieren anhand der linken Ecke. */
