@@ -106,6 +106,7 @@ var EasyDialog;
             if (that.options.contentUrl) {
                 loadContent(that.options.contentUrl);
             } else {
+                console.log('hier');
                 writeContent(that.options.content);
             }
             // append easy dialog and overlay to body
@@ -127,14 +128,14 @@ var EasyDialog;
 
         function stateChanged(event) {
             if (event.currentTarget.readyState === 4 && event.currentTarget.status === 200) {
-                writeContent(event);
+                writeContent(event.currentTarget.response);
             }
         }
         /**
          * @brief write into content
          */
-        function writeContent(event) {
-            that.content.innerHTML = event.currentTarget.response;
+        function writeContent(content) {
+            that.content.innerHTML = content;
         }
         /**
          * @brief merge two config objects.
@@ -164,7 +165,12 @@ var dlg = new EasyDialog({
     contentUrl: 'content.html',
     x: 150});
 
+var dlg2 = new EasyDialog({
+    title: 'NL text',
+    content: 'Bla'
+});
 var dialogTrigger = document.getElementById('dialogTrigger');
 dialogTrigger.addEventListener('click', function(event){
     dlg.open();
+    dlg2.open();
 });
