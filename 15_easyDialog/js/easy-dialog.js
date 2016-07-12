@@ -1,6 +1,8 @@
+var EasyDialog;
+/*jshint browser: true */
 (function() {
     'use strict';
-    window.EasyDialog = function(config) {
+    EasyDialog = function(config) {
         // Best practice für veränderbaren Scope von weiteren Funktionen
         var that = this;
 
@@ -11,11 +13,11 @@
         that.titleBar;
         that.content;
         that.contentUrl;
-        that.contentLoaded = Empty;
+        //that.contentLoaded = Empty;
         that.options = {};
         that.isOpen = false;
 
-        function Empty(){};
+        // function Empty(){};
 
         var defaults = {
             theme: 'easy-bright',
@@ -50,7 +52,7 @@
         /**
          * @brief Closes the dialog
          */
-        that.close = function(event) {
+        that.close = function() {
             if (that.isOpen) {
                 document.body.removeChild(that.overlay);
                 document.body.removeChild(that.easyDialog);
@@ -63,7 +65,7 @@
         function createEasyDialog () {
             // create overlay and give class
             var overlay = document.createElement('div');
-            overlay.className = 'ed-overlay'
+            overlay.className = 'ed-overlay';
             that.overlay = overlay;
 
             // create easydialog and give class
@@ -76,7 +78,7 @@
             var closeButton = document.createElement('a');
             closeButton.className = 'ed-close-button';
             closeButton.href = '#';
-            closeButton.innerHTML = "&times;";
+            closeButton.innerHTML = '&times;';
             easyDialog.appendChild(closeButton);
             that.closeButton  = closeButton;
 
@@ -102,7 +104,7 @@
 
             // get content if AJAX url is set
             if (that.options.contentUrl) {
-                loadContent(that.options.contentUrl)
+                loadContent(that.options.contentUrl);
             } else {
                 writeContent(that.options.content);
             }
@@ -110,30 +112,30 @@
             if (that.options.autoOpen) {
                 that.open();
             }
-        };
+        }
 
         /**
          * @brief Load content through AJAX
          */
-        function loadContent () {
+        function loadContent() {
             var url = that.options.contentUrl;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = stateChanged;
             xhr.open('GET', url);
             xhr.send();
-        };
+        }
 
         function stateChanged(event) {
             if (event.currentTarget.readyState === 4 && event.currentTarget.status === 200) {
-                writeContent();
+                writeContent(event);
             }
         }
         /**
          * @brief write into content
          */
-        function writeContent () {
+        function writeContent(event) {
             that.content.innerHTML = event.currentTarget.response;
-        };
+        }
         /**
          * @brief merge two config objects.
          * @param Object source Default config.
@@ -147,7 +149,7 @@
                     source[property] = newProps[property];
                 }
             }
-            return source
+            return source;
         }
 
         /* permanent calls */
