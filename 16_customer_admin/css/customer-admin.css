@@ -1,3 +1,82 @@
-html, body {
-    height: 100.5%;
+*,
+*::before,
+*::after {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+}
+
+.wrapper {
+	width: 95%;
+/*	max-width: 1200px;*/
+	min-width: 320px;
+
+	margin: 0 auto;
+	border: 5px solid grey;
+}
+
+.site-header {
+	background-color: lightgrey;
+	text-align: center;
+	padding: 0.5em 1em;
+}
+
+.content {
+	padding: 4% 2%;
+	background-color: lightblue;
+	min-height: 3rem;
+}
+
+th::first-letter {
+	text-transform: uppercase;
+}
+
+td {
+	position: relative;
+}
+
+.tooltip {
+	position: absolute;
+	top: 50%;
+	left: -10px;
+	transform: translate(-100%, -50%);
+	background-color: white;
+	width: 220px;
+	height: 220px;
+	padding: 10px;
+	border-radius: 6px;
+	box-shadow: 3px 3px 3px 0 rbga(0,0,0,0.8);
+	z-index: 1;
+}
+
+.tooltip:after {
+	content: '';
+	width: 0;
+	height: 0;
+	border-bottom: 10px solid transparent;  /* left arrow slant */
+	border-top: 10px solid transparent; /* right arrow slant */
+	border-left: 10px solid white; /* bottom, add background color here */
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	right: -10px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.table-button {
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border: 1px solid whitesmoke;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 3px;
+    padding: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.table-button:hover {
+    cursor: pointer;
+    background-color: lightgrey;
 }

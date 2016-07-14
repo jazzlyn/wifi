@@ -1,9 +1,15 @@
-easy dialog
+Für einen Lorem Ipsum Text:
 
-* bei open close eine funktion aus config (von außen) aufrufen.
-console.log ausgeben (call/apply)
+funktion (text als param, *)
+    maximale zeichen 120
+    kürzt den text
+    am ende "..."
+    
+    bonus: beim letzmöglichen leerraum trennen
+    bonus 2: klick und aufklappbar
+    bonus 3: * option ob abschneiden bei 120 zeichen oder letztmöglichen leerraum nutzen
 
-* nicht modale dialoge zulassen (kein overlay) -> alert
+löschen button überlegen
     
 * mockup vom dashboard erstellen
     pencil yaourt mockup program
