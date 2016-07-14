@@ -5,6 +5,7 @@
     var content = document.querySelector('.main-content');
     var tooltip;
     var tooltipImage;
+    var mapsUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=%geodata%&zoom=8&size=200x200&key=AIzaSyAFUcvizMVY5V9IXYuZfnPgnQkJdZ0GAk4';
 
     loadJSON();
     createTooltip();
@@ -79,34 +80,32 @@
     }
 
     function showTooltip(event) {
+        if (event.target === tooltip) {
+            return;
+        }
         var cell = event.target;
-        var geodata = event.target.innerHTML;
+        var geodata = cell.innerHTML;
         geodata = geodata.replace(/ /g, '');
         if (geodata !== '') {
-            var map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + geodata + '&zoom=8&size=200x200&key=AIzaSyAFUcvizMVY5V9IXYuZfnPgnQkJdZ0GAk4';
+            var map = mapsUrl.replace('%geodata%', geodata);
+           // var map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + geodata + '&zoom=8&size=200x200&key=AIzaSyAFUcvizMVY5V9IXYuZfnPgnQkJdZ0GAk4';
             tooltipImage.src = map;
             cell.appendChild(tooltip);
         }
     }
 
     function hideTooltip(event) {
-        if (
-            (!event.relatedTarget.classList.contains('tooltip') ||
-			!event.toElement.classList.contains('tooltip')) &&
-			(!event.relatedTarget.classList.contains('tooltip-image') ||
-			!event.toElement.classList.contains('tooltip-image'))
-        ) {
-            tooltip.remove();
-        }
+        tooltip.remove();
     }
 
     function createTooltip() {
-        if (tooltip === undefined) {
-            tooltip = document.createElement('div');
-            tooltip.className = 'tooltip';
-            tooltipImage = document.createElement('img');
-            tooltip.appendChild(tooltipImage);
+        if (tooltip) {
+           return;
         }
+        tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltipImage = document.createElement('img');
+        tooltip.appendChild(tooltipImage);
     }
 
     function editData(event) {
@@ -127,3 +126,10 @@
         console.log(line);
     }
 })();
+
+
+var btn = document.createElement('button');
+document.body.appendChild(btn);
+btn.addEventListener('toggle', function(e) {
+    console.log(e);
+});
