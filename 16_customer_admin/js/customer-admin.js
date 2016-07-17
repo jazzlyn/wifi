@@ -88,7 +88,6 @@
         geodata = geodata.replace(/ /g, '');
         if (geodata !== '') {
             var map = mapsUrl.replace('%geodata%', geodata);
-           // var map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + geodata + '&zoom=8&size=200x200&key=AIzaSyAFUcvizMVY5V9IXYuZfnPgnQkJdZ0GAk4';
             tooltipImage.src = map;
             cell.appendChild(tooltip);
         }
@@ -110,26 +109,21 @@
 
     function editData(event) {
         var line = event.target.parentNode.parentNode;
-        var tds = line.getElementsByTagName('td');
-        //for (var i = 0; i < td.length; i++) {
-            // erstes element ignorieren
-            //  text aus td auslesen und speichern (data attribute)
-            // input feld erstellen
-            // text in value des inputs schreiben
+        var cells = line.getElementsByTagName('td');
+        for (var i = 1; i < cells.length; i++) {
+            var cellText = cells[i].innerHTML;
+            cells[i].setAttribute('data-value', cellText);
+            var input = document.createElement('input');
+            input.value = cellText;
+            cells[i].innerHTML = '';
+            cells[i].appendChild(input);
             // save button generieren -> events
             // abbrechen button regenerieren -> events, bei abbruch alter text zurück
             // TODO in createTable Formular um die Tabelle herum setzen
             // Tabelle muss sich in dem Formular befinden
             // Form muss on submit event abfangen, weil AJAX, Json stringify
             // nachlesen HTML5 data attributes
-        //}
+        }
         console.log(line);
     }
 })();
-
-
-var btn = document.createElement('button');
-document.body.appendChild(btn);
-btn.addEventListener('toggle', function(e) {
-    console.log(e);
-});

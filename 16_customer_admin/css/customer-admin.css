@@ -80,3 +80,7 @@ td {
     cursor: pointer;
     background-color: lightgrey;
 }
+table input {
+    width: 100%;
+    display: table-cell;
+}
