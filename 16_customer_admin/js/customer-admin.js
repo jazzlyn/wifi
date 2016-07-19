@@ -49,7 +49,7 @@
                     var editImg = document.createElement('img');
                     editImg.src = 'buttons/pencil.svg';
                     editImg.className = 'table-button';
-                    editImg.addEventListener('click', editData);
+                    editImg.addEventListener('click', editHandler);
                     cell.appendChild(editImg);
                     // ends actual for loop and begins next loop
                     continue;
@@ -107,8 +107,58 @@
         tooltip.appendChild(tooltipImage);
     }
 
-    function editData(event) {
+    function editHandler(event) {
         var line = event.target.parentNode.parentNode;
+        editData(line);
+        switchButton('save', line);
+    }
+
+    function switchButton(mode, line) {
+        var cell = line.getElementsByTagName('td')[0];
+        cell.innerHTML = '';
+        var img = document.createElement('img');
+        img.className = 'table-button';
+        img.src = 'buttons/' + mode + '.svg';
+        cell.appendChild(img);
+        if (mode === 'save') {
+            img.addEventListener('click', saveHandler);
+            var cancelImg = document.createElement('img');
+            cancelImg.className = 'table-button';
+            cancelImg.src = 'buttons/cancel.svg';
+            cell.appendChild(cancelImg);
+            cancelImg.addEventListener('click', cancelHandler);
+        } else if (mode === 'pencil') {
+            img.addEventListener('click', editHandler);
+        }
+    }
+
+    function saveHandler(event) {
+        var line = event.target.parentNode.parentNode;
+        saveData(line);
+        switchButton('pencil', line);
+    }
+    
+    function saveData(line) {
+        var cells = line.getElementsByTagName('td');
+        for (var i = 1; i < cells.length; i++) {
+            cells[i].innerHTML = cells[i].querySelector('input').value;
+        }
+    }
+
+    function cancelHandler(event) {
+        var line = event.target.parentNode.parentNode;
+        cancelData(line);
+        switchButton('pencil', line);
+    }
+
+    function cancelData(line) {
+        var cells = line.querySelectorAll('td');
+        for (var i = 1; i < cells.length; i++) {
+            cells[i].innerHTML = cells[i].getAttribute('data-value');
+        }
+    }
+
+    function editData(line) {
         var cells = line.getElementsByTagName('td');
         for (var i = 1; i < cells.length; i++) {
             var cellText = cells[i].innerHTML;
@@ -117,12 +167,6 @@
             input.value = cellText;
             cells[i].innerHTML = '';
             cells[i].appendChild(input);
-            // save button generieren -> events
-            // abbrechen button regenerieren -> events, bei abbruch alter text zurück
-            // TODO in createTable Formular um die Tabelle herum setzen
-            // Tabelle muss sich in dem Formular befinden
-            // Form muss on submit event abfangen, weil AJAX, Json stringify
-            // nachlesen HTML5 data attributes
         }
     }
 })();
