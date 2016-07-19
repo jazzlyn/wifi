@@ -124,6 +124,5 @@
             // Form muss on submit event abfangen, weil AJAX, Json stringify
             // nachlesen HTML5 data attributes
         }
-        console.log(line);
     }
 })();
