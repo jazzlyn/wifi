@@ -4,11 +4,35 @@
 
     function init() {
         var p1 = document.getElementById('p1');
-        console.log(p1);
-        modifyString(p1, true, 90);
+        enableFolding(p1, true, 90);
     }
 
-    function cutString(element, string, keepWords, maxLength) {
+    function enableFolding(node, keepWords, maxLength) {
+        var longString = node.textContent;
+        var shortString = cutString(longString, keepWords, maxLength);
+        node.setAttribute('data-value', longString);
+        node.innerHTML = shortString;
+        var a = document.createElement('a');
+        a.innerHTML = '&nbsp;weiterlesen…';
+        a.setAttribute('data-value', '&nbsp;zuklappen');
+        node.appendChild(a);
+        a.addEventListener('click', toggleStrings);
+    }
+
+    function toggleStrings(event) {
+        var node = event.currentTarget.parentNode;
+        var a = event.currentTarget;
+        node.removeChild(a);
+        var nodeString = node.textContent;
+        node.innerHTML = node.getAttribute('data-value');
+        node.setAttribute('data-value', nodeString);
+        var aString = a.textContent;
+        a.innerHTML = a.getAttribute('data-value');
+        a.setAttribute('data-value', aString);
+        node.appendChild(a);
+    }
+
+    function cutString(string, keepWords, maxLength) {
         if (typeof(string) !== 'string' || string.length === 0) {
             return '';
         }
@@ -25,49 +49,9 @@
                 trimmedString = trimmedString.substring(0, Math.min(trimmedString.length, lastSpace));
             }
         }
-        element.innerHTML = trimmedString;
-        return element;
-        //return trimmedString;
+        return trimmedString;
     }
-
-    function modifyString(element, keepWords, maxLength) {
-        var oldString = element.textContent;
-        var newString = cutString(element, oldString, keepWords, maxLength);
-
-        if (element === newString) {
-            var readMore = createReadMore();
-            clickEvent(element, readMore, oldString);
-            return;
-        }
-        if (element === oldString) {
-            var readLess = createReadLess();
-            clickEvent(element, readLess, newString);
-            return;
-        }
-    }
-
-    function clickEvent(element, readMoreOrLess, stringElement) {
-        readMoreOrLess.addEventListener('click', function(event) {
-            event.preventDefault();
-            element.innerHTML = stringElement;
-        });
-        element.appendChild(readMoreOrLess);
-    }
-
-    function createReadMore() {
-        var readMore = document.createElement('a');
-        readMore.href = '#';
-        readMore.innerHTML = '...weiterlesen';
-        return readMore;
-    }
-
-    function createReadLess() {
-        var readLess = document.createElement('a');
-        readLess.href = '#';
-        readLess.innerHTML = '...zuklappen';
-        return readLess;
-    }
-
+    
     init();
 
 })();

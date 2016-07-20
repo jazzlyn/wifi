@@ -16,6 +16,8 @@
 
     function submitHandler(event) {
         event.preventDefault();
+        var data = new FormData(form);
+        console.log(data);
     }
 
     // create new JSON object for database
