@@ -1,35 +1,71 @@
 /*jshint browser: true */
 (function() {
     'use strict';
-    var p = document.querySelector('p');
-    var string = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, vitae. Tempore sed rem error minus harum soluta, odio explicabo quaerat, labore nostrum libero a doloribus ullam, neque reprehenderit repellat maxime.';
-    var span;
 
     function init() {
-        createPoints();
-        cutString(string, true);
+        var p1 = document.getElementById('p1');
+        console.log(p1);
+        modifyString(p1, true, 90);
     }
 
-    function cutString(string, keepWords) {
-        if (string.length < 120) {
+    function cutString(element, string, keepWords, maxLength) {
+        if (typeof(string) !== 'string' || string.length === 0) {
+            return '';
+        }
+        if (maxLength === undefined || maxLength.isNaN === true) {
+            maxLength = 120;
+        }
+        if (string.length < maxLength) {
             throw Error('String is too short!');
         }
-        var trimmedString = string.substring(0, 120);
-        if (keepWords) {
-            trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')));
+        var trimmedString = string.substring(0, maxLength);
+        if (keepWords === true) {
+            var lastSpace = trimmedString.lastIndexOf(' ');
+            if (lastSpace > -1) {
+                trimmedString = trimmedString.substring(0, Math.min(trimmedString.length, lastSpace));
+            }
         }
-        p.innerHTML = trimmedString + '…';
-        p.appendChild(span);
+        element.innerHTML = trimmedString;
+        return element;
+        //return trimmedString;
     }
 
-    function createPoints() {
-        span = document.createElement('span');
-        span.innerHTML = 'weiterlesen';
-        span.addEventListener('click', clickHandler);
+    function modifyString(element, keepWords, maxLength) {
+        var oldString = element.textContent;
+        var newString = cutString(element, oldString, keepWords, maxLength);
+
+        if (element === newString) {
+            var readMore = createReadMore();
+            clickEvent(element, readMore, oldString);
+            return;
+        }
+        if (element === oldString) {
+            var readLess = createReadLess();
+            clickEvent(element, readLess, newString);
+            return;
+        }
     }
 
-    function clickHandler() {
-        p.innerHTML = string;
+    function clickEvent(element, readMoreOrLess, stringElement) {
+        readMoreOrLess.addEventListener('click', function(event) {
+            event.preventDefault();
+            element.innerHTML = stringElement;
+        });
+        element.appendChild(readMoreOrLess);
+    }
+
+    function createReadMore() {
+        var readMore = document.createElement('a');
+        readMore.href = '#';
+        readMore.innerHTML = '...weiterlesen';
+        return readMore;
+    }
+
+    function createReadLess() {
+        var readLess = document.createElement('a');
+        readLess.href = '#';
+        readLess.innerHTML = '...zuklappen';
+        return readLess;
     }
 
     init();
