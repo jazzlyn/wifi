@@ -43,11 +43,11 @@
                 row.appendChild(cell);
                 // if key is geodata, make map
                 if (key === 'geodata') {
-                    cell.addEventListener('mouseover', showTooltip);
-                    cell.addEventListener('mouseout', hideTooltip);
+                    cell.addEventListener('mouseover', showTooltipHandler);
+                    cell.addEventListener('mouseout', hideTooltipHandler);
                 } else if (key === 'id') {
                     var editImg = document.createElement('img');
-                    editImg.src = 'buttons/pencil.svg';
+                    editImg.src = 'buttons/edit.svg';
                     editImg.className = 'table-button';
                     editImg.addEventListener('click', editHandler);
                     cell.appendChild(editImg);
@@ -79,7 +79,7 @@
         table.appendChild(thead);
     }
 
-    function showTooltip(event) {
+    function showTooltipHandler(event) {
         if (event.target === tooltip) {
             return;
         }
@@ -93,7 +93,7 @@
         }
     }
 
-    function hideTooltip(event) {
+    function hideTooltipHandler(event) {
         tooltip.remove();
     }
 
@@ -113,6 +113,44 @@
         switchButton('save', line);
     }
 
+    function editData(line) {
+        var cells = line.getElementsByTagName('td');
+        for (var i = 1; i < cells.length; i++) {
+            var cellText = cells[i].innerHTML;
+            cells[i].setAttribute('data-value', cellText);
+            var input = document.createElement('input');
+            input.value = cellText;
+            cells[i].innerHTML = '';
+            cells[i].appendChild(input);
+        }
+    }
+
+    function saveHandler(event) {
+        var line = event.target.parentNode.parentNode;
+        saveData(line);
+        switchButton('edit', line);
+    }
+
+    function saveData(line) {
+        var cells = line.getElementsByTagName('td');
+        for (var i = 1; i < cells.length; i++) {
+            cells[i].innerHTML = cells[i].querySelector('input').value;
+        }
+    }
+
+    function cancelHandler(event) {
+        var line = event.target.parentNode.parentNode;
+        cancelData(line);
+        switchButton('edit', line);
+    }
+
+    function cancelData(line) {
+        var cells = line.querySelectorAll('td');
+        for (var i = 1; i < cells.length; i++) {
+            cells[i].innerHTML = cells[i].getAttribute('data-value');
+        }
+    }
+
     function switchButton(mode, line) {
         var cell = line.getElementsByTagName('td')[0];
         cell.innerHTML = '';
@@ -127,46 +165,8 @@
             cancelImg.src = 'buttons/cancel.svg';
             cell.appendChild(cancelImg);
             cancelImg.addEventListener('click', cancelHandler);
-        } else if (mode === 'pencil') {
+        } else if (mode === 'edit') {
             img.addEventListener('click', editHandler);
-        }
-    }
-
-    function saveHandler(event) {
-        var line = event.target.parentNode.parentNode;
-        saveData(line);
-        switchButton('pencil', line);
-    }
-    
-    function saveData(line) {
-        var cells = line.getElementsByTagName('td');
-        for (var i = 1; i < cells.length; i++) {
-            cells[i].innerHTML = cells[i].querySelector('input').value;
-        }
-    }
-
-    function cancelHandler(event) {
-        var line = event.target.parentNode.parentNode;
-        cancelData(line);
-        switchButton('pencil', line);
-    }
-
-    function cancelData(line) {
-        var cells = line.querySelectorAll('td');
-        for (var i = 1; i < cells.length; i++) {
-            cells[i].innerHTML = cells[i].getAttribute('data-value');
-        }
-    }
-
-    function editData(line) {
-        var cells = line.getElementsByTagName('td');
-        for (var i = 1; i < cells.length; i++) {
-            var cellText = cells[i].innerHTML;
-            cells[i].setAttribute('data-value', cellText);
-            var input = document.createElement('input');
-            input.value = cellText;
-            cells[i].innerHTML = '';
-            cells[i].appendChild(input);
         }
     }
 })();
