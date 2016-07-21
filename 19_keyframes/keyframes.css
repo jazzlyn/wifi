@@ -1,0 +1,36 @@
+.test-button {
+	background-color: #acb2d7;
+	padding: 20px;
+	border: 3px solid #900;
+	font-size: 1.1em;
+	border-radius: 6px;
+	transform: rotate(0);
+}
+
+.test-button:hover {
+	animation-name: changebutton;
+ 	animation-duration: 2s;
+ 	animation-iteration-count: 2;
+ 	animation-direction: alternate-reverse;
+ 	animation-timing-function: cubic-bezier(0.080, 1.650, 0.810, -0.600);
+ 	animation-fill-mode: forwards;
+ 	animation-delay: 2s;
+}
+
+@keyframes changebutton {
+	0% {
+		background-color: #acb2d7;
+		font-size: 1.1em
+	}
+	25% {
+		color: blue;
+	}
+	50% {
+		font-size: 2em;
+		background-color: orange;
+	}
+	100% {
+		background-color: #acb2d7;
+		font-size: 1.1em;
+	}
+}
