@@ -2,7 +2,9 @@
 (function() {
     'use strict';
     var jsonURL = 'data/zodiac-data.json';
-    var wrapper;
+    var json;
+    var wrapper = document.querySelector('.pure-menu');
+    var heading = document.querySelector('.pure-menu-heading');
 
     function init() {
         loadJSON();
@@ -17,77 +19,132 @@
 
     function stateChanged(event) {
         if (event.currentTarget.readyState === 4 && event.currentTarget.status === 200) {
-            var json = JSON.parse(event.currentTarget.response);
-            createWrapper();
-            createZodiacList(json);
+            json = JSON.parse(event.currentTarget.response);
+            createZodiacList();
         }
     }
 
-    function createWrapper() {
-        wrapper = document.createElement('div');
-        wrapper.className = 'pure-menu wrapper';
-        var heading = document.createElement('span');
-        heading.className = 'pure-menu-heading';
+    function createZodiacList() {
+        wrapper.innerHTML = '';
         heading.innerHTML = 'Zodiac Signs';
-        wrapper.appendChild(heading);
-        document.body.appendChild(wrapper);
-    }
-
-    function createZodiacList(json) {
         var ulNode = document.createElement('ul');
         ulNode.className = 'pure-menu-list';
-        for (var i = 0; i < json.length; i++) {
-            var obj = json[i];
+        for (var i = 0; i < json.zodiac_signs.length; i++) {
+            var obj = json.zodiac_signs[i];
             var liNode = document.createElement('li');
             var aNode = document.createElement('a');
             aNode.className = 'pure-menu-link';
             var textNode = document.createTextNode(obj.name);
             aNode.appendChild(textNode);
+            aNode.addEventListener('click', detailHandler);
             liNode.appendChild(aNode);
-            //liNode.addEventListener('click', detailHandler);
             ulNode.appendChild(liNode);
         }
         wrapper.appendChild(ulNode);
-
-        // der user soll sein sternzeichen aus einer liste aller sternzeichen wäheln können, klickt er auf sein sternzeichen soll die liste nicht mehr sichtbar sein und eine ansicht angezigt weden
     }
 
-    function detailHandler() {
-        // show detailed content
+    function detailHandler(event) {
+        createDetailedView(event);
     }
 
-    function overviewHandler() {
-        // der user kann von der “horoskop ansicht” zurück zur sternzeichen liste und ein anderes sternzeichen anwählen
 
-    }
+    function createDetailedView(event) {
+        // create heading with actual zodiac sign
+        heading.innerHTML = event.currentTarget.innerHTML;
 
-    function createDetailedView() {
-        /*    <div>
-        <h1>Fische</h1>
-        <p>dein persönliches Horoskop für <span class=”datetime”>Samstag 25.06.2016 13:02:57</span></p>
-        <ul>
-            <li>Glück: 4/5</li>
-            <li>Liebe: 3/5</li>
-            <li>Geld: 5/5</li>
-            <li>Familie: 2/5</li>
-            <li>Job: 4/5</li>
-            <li>Freizeit: 2/5</li>
-        </ul>
-        </div>
-        im h1 soll das ausgewählte Sternzeichen stehen
-        */
+        // create greeting with actual date
+        wrapper.innerHTML = '';
+        var h3node = document.createElement('h3');
+        var span = document.createElement('span');
+        span.className = 'datetime';
+        span.innerHTML = setDate();
+        h3node.innerHTML = 'Your personal Horoscope for&nbsp' + span.innerHTML;
+
+        // create infoelement with details from actual zodiac sign
+        var div = document.createElement('div');
+        for (var i = 0; i < json.zodiac_signs.length; i++) {
+            var obj = json.zodiac_signs[i];
+            for (var key in obj) {
+                if (obj.name === heading.innerHTML) {
+                    if (key === "name") {
+                        continue;
+                    }
+                    var p = document.createElement('p');
+                    var label = document.createElement('span');
+                    var textNode = document.createTextNode(obj[key]);
+                    label.innerHTML = key;
+                    label.className = 'label';
+                    p.appendChild(label);
+                    p.appendChild(textNode);
+                    div.appendChild(p);
+                }
+            }
+        }
+        wrapper.appendChild(h3node);
+        wrapper.appendChild(div);
+
+        // create params element for zodiac sign
+        var ul = document.createElement('ul');
+        ul.className = 'pure-menu-list';
+        for (var j = 0; j < json.params.length; j++) {
+            var li = document.createElement('li');
+            var params = json.params[j];
+            var val = getVal();
+            li.innerHTML = params + ':&nbsp;' + val + '/5';
+            ul.appendChild(li);
+        }
+        wrapper.appendChild(ul);
+        var print = clickElement('print');
+        wrapper.appendChild(print);
+        var back = clickElement('overview');
+        wrapper.appendChild(back);
+
     }
 
     function setDate() {
-        // im .datetime das Aktuelle datum mit Uhrzeit, wie oben formatiert
+        var allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        var date = new Date();
+        var weekday = date.getDay() - 1;
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        if (month < 10) {
+            month = '0' + month;
+        }
+        var year = date.getFullYear();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        var seconds = date.getSeconds();
+        var currentDate = allDays[weekday] + '&nbsp;' + day + '.' + month + '.' + year + '&nbsp;' + hours + ':' + minutes + ':' + seconds;
+        return currentDate;
     }
 
-    function setValues() {
-        // die werte für Glück, Liebe, etc sollen zufällig erstellt werden. Wobei kein wert unter 2 herauskommen darf und die gesamt anzahl der punkte immer 20 ergeben müssen.
+    function getVal() {
+        var minVal = 2;
+        var maxVal = 5;
+        var diffVal = maxVal - minVal;
+        var val = Math.round(Math.random() * diffVal + minVal);
+        return val;
+        // TODO: die gesamt anzahl der punkte immer 20 ergeben müssen.
     }
 
-    function printHoroscope() {
-        // oder ein aktuelles horoskop erstellen lassen. pdf
+    function clickElement(type) {
+        var p = document.createElement('p');
+        var a = document.createElement('a');
+        a.href = '#';
+        var text;
+        if (type === 'overview') {
+            text = document.createTextNode('back to Zodiac List');
+            a.addEventListener('click', function() { createZodiacList();});
+        } else if (type === 'print') {
+            text = document.createTextNode('Print Horoscope');
+            a.addEventListener('click', function() { window.print();});
+        }
+        a.appendChild(text);
+        p.appendChild(a);
+        return p;
     }
 
     init();

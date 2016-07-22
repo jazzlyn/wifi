@@ -1,74 +1,79 @@
-[
-    {
-        "name": "Capricorn",
-        "period": "Dec 22 - Jan 21",
-        "element": "Earth",
-        "attributes": "Hardworking, Straightforward, Stubborn"
-    },
-    {
-        "name": "Aquarius",
-        "period": "Jan 22 - Feb 21",
-        "element": "Air",
-        "attributes": "Innovative, Admired, Eccentric"
-    },
-    {
-        "name": "Pisces",
-        "period": "Feb 22 - Mar 21",
-        "element": "Water",
-        "attributes": "Free, Sensual, Sensitive"
-    },
-    {
-        "name": "Aries",
-        "period": "Mar 22 - Apr 21",
-        "element": "Fire",
-        "attributes": "Brave, Independent, Impulsive"
-    },
-    {
-        "name": "Taurus",
-        "period": "Apr 22 - May 21",
-        "element": "Earth",
-        "attributes": "Good taste, Sensual, Down to Earth, Stubborn"
-    },
-    {
-        "name": "Gemini",
-        "period": "May 22 - Jun 21",
-        "element": "Air",
-        "attributes": "Dynamic, Many talents, Likes games"
-    },
-    {
-        "name": "Cancer",
-        "period": "Jun 22 - Jul 21",
-        "element": "Water",
-        "attributes": "Sensitive, Friend-oriented, Practical"
-    },
-    {
-        "name": "Leo",
-        "period": "Jul 22 - Aug 21",
-        "element": "Fire",
-        "attributes": "Creative, Popular, Faithful"
-    },
-    {
-        "name": "Virgo",
-        "period": "Aug 22 - Sep 21",
-        "element": "Earth",
-        "attributes": "Successful, Creative, Clever"
-    },
-    {
-        "name": "Libra",
-        "period": "Sep 22 - Oct 21",
-        "element": "Air",
-        "attributes": "Irresistible, Adventurous, Indecisive"
-    },
-    {
-        "name": "Scorpio",
-        "period": "Oct 22 - Nov 21",
-        "element": "Water",
-        "attributes": "Self-reliant, Powerful, Dominant"
-    },
-    {
-        "name": "Sagittarius",
-        "period": "Nov 22 - Dec 21",
-        "element": "Fire",
-        "attributes": "Open-minded, Loving, Insensitive"
-    }
-]
+{
+    "zodiac_signs": [
+        {
+            "name": "Capricorn",
+            "period": "Dec 22 - Jan 21",
+            "element": "Earth",
+            "attributes": "Hardworking, Straightforward, Stubborn"
+        },
+        {
+            "name": "Aquarius",
+            "period": "Jan 22 - Feb 21",
+            "element": "Air",
+            "attributes": "Innovative, Admired, Eccentric"
+        },
+        {
+            "name": "Pisces",
+            "period": "Feb 22 - Mar 21",
+            "element": "Water",
+            "attributes": "Free, Sensual, Sensitive"
+        },
+        {
+            "name": "Aries",
+            "period": "Mar 22 - Apr 21",
+            "element": "Fire",
+            "attributes": "Brave, Independent, Impulsive"
+        },
+        {
+            "name": "Taurus",
+            "period": "Apr 22 - May 21",
+            "element": "Earth",
+            "attributes": "Good taste, Sensual, Down to Earth, Stubborn"
+        },
+        {
+            "name": "Gemini",
+            "period": "May 22 - Jun 21",
+            "element": "Air",
+            "attributes": "Dynamic, Many talents, Likes games"
+        },
+        {
+            "name": "Cancer",
+            "period": "Jun 22 - Jul 21",
+            "element": "Water",
+            "attributes": "Sensitive, Friend-oriented, Practical"
+        },
+        {
+            "name": "Leo",
+            "period": "Jul 22 - Aug 21",
+            "element": "Fire",
+            "attributes": "Creative, Popular, Faithful"
+        },
+        {
+            "name": "Virgo",
+            "period": "Aug 22 - Sep 21",
+            "element": "Earth",
+            "attributes": "Successful, Creative, Clever"
+        },
+        {
+            "name": "Libra",
+            "period": "Sep 22 - Oct 21",
+            "element": "Air",
+            "attributes": "Irresistible, Adventurous, Indecisive"
+        },
+        {
+            "name": "Scorpio",
+            "period": "Oct 22 - Nov 21",
+            "element": "Water",
+            "attributes": "Self-reliant, Powerful, Dominant"
+        },
+        {
+            "name": "Sagittarius",
+            "period": "Nov 22 - Dec 21",
+            "element": "Fire",
+            "attributes": "Open-minded, Loving, Insensitive"
+        }
+    ],
+    "params": [
+        "Fortune", "Love", "Money", "Family", "Job", "Freetime"
+    ]
+}
