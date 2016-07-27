@@ -3,16 +3,6 @@
 /* from david walsh: https://davidwalsh.name/promises */
 (function() {
     'use strict';
-    // Params object
-    var Params = function(url) {
-        this.url = url;
-        this.data = data;
-        this.format = function(url) {
-            // check if input is json
-            // else is plain
-        }
-        
-    }
     
     function get(url) {
         // new promise
@@ -24,9 +14,17 @@
         xhr.onload = function() {
             // check status
             if (xhr.status === 200) {
+                var response;
                 // resolve promise with response text
-                var json = JSON.parse(xhr.response);
-                resolve(json);
+                if (xhr.responseType === "json") {
+                    xhr.setRequestHeader("Accept", "json");
+                    response = JSON.parse(xhr.response);
+                } else if (xhr.responseType === "text") {
+                    response = xhr.response;
+                } else {
+                    return;
+                }
+                resolve(response);
             } else {
                 // reject promise with status text
                 reject(Error(xhr.statusText));
