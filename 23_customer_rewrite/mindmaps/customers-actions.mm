@@ -1,0 +1,15 @@
+<map version="1.0.1">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node CREATED="1468397136141" ID="ID_650774645" MODIFIED="1468397148353" TEXT="Kundenverwaltung Aktionen">
+<node CREATED="1468397157966" ID="ID_1356976490" MODIFIED="1468397162122" POSITION="right" TEXT="Darstellen">
+<node CREATED="1468397169965" ID="ID_1324654782" MODIFIED="1468397365383" TEXT="erster Aufruf">
+<node CREATED="1468397271637" ID="ID_1947636803" MODIFIED="1468397274553" TEXT="Daten holen"/>
+<node CREATED="1468397277885" ID="ID_558472398" MODIFIED="1468397316867" TEXT="HTML Elemente erstellen"/>
+<node CREATED="1468397396931" ID="ID_1788232573" MODIFIED="1468397402431" TEXT="Events bestimmen">
+<node CREATED="1468397479546" ID="ID_1084885844" MODIFIED="1468397481611" TEXT="l&#xf6;schen"/>
+<node CREATED="1468397483562" ID="ID_615847011" MODIFIED="1468397486225" TEXT="bearbeiten"/>
+</node>
+</node>
+</node>
+</node>
+</map>

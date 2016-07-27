@@ -1,0 +1,15 @@
+gestaltung wie auf dem portfolio
+
+kunde vorname nachname, edit und delete button
+bei edit:
+auch kunde vorname nachname, aber save und cancel
+
+
+1. schritt visuell
+
+wrapper UL klasse kv
+list 3 elements
+
+vorname nachname kv heading
+menu is kv-menu
+detail form kv-details

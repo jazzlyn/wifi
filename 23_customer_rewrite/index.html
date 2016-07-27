@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Administration</title>
+    <link rel="stylesheet" href="css/customer-admin.css">
+    <link rel="stylesheet" href="css/pure-min.css">
+</head>
+<body>
+    <div class="wrapper">
+	    <header class="pure-menu-heading">
+		    <h1>Kunden</h1>
+	    </header>
+	    <script>
+            function showDetails(event) {
+                var parent = event.target.parentElement.parentElement;
+                var detailElement = document.querySelector('.kv-details');
+                parent.appendChild(detailElement);
+                detailElement.style.display = "inline";
+            }
+
+            function hideDetails(event) {
+                event.preventDefault();
+                var detailElement = document.querySelector('.kv-details');
+                detailElement.style.display = "none";
+            }
+        </script>
+	    <!--<main class="main-content"></main>-->
+	    <ul class="pure-menu-list kv">
+            <li class="pure-menu-link kv-heading">User 1
+            <div class="kv-menu">
+                <a href="#" onclick="showDetails(event);">edit</a>
+                <a href="#">delete</a>
+            </div>
+            </li>
+            <li class="pure-menu-link kv-heading">User 2
+            <div class="kv-menu">
+                <a href="#" onclick="showDetails(event);">edit</a>
+                <a href="#">delete</a>
+            </div>
+            </li>
+            <li class="pure-menu-link kv-heading">User 3
+            <div class="kv-menu">
+                <a href="#" onclick="showDetails(event);">edit</a>
+                <a href="#">delete</a>
+            </div>
+            </li>
+            <li class="pure-menu-link kv-heading">User 4
+            <div class="kv-menu">
+                <a href="#" onclick="showDetails(event);">edit</a>
+                <a href="#">delete</a>
+            </div>
+            </li>
+        </ul>
+        <!-- details -->
+        <form class="pure-form pure-form-aligned kv-details">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="vorname">Vorname</label>
+                    <input type="text" placeholder="Vorname">
+                </div>
+                <div class="pure-control-group">
+                    <label for="nachname">Nachname</label>
+                    <input type="text" placeholder="Nachname">
+                </div>
+                <div class="pure-control-group">
+                    <label for="email">E-Mail:</label>
+                    <input type="text" placeholder="E-Mail:">
+                </div>
+                <div class="pure-control-group">
+                    <label for="geburtsdatum">Geburtsdatum:</label>
+                    <input type="text" placeholder="Geburtsdatum:">
+                </div>
+                <div class="pure-control-group">
+                    <label for="adresse">Adresse:</label>
+                    <input type="text" placeholder="Adresse:">
+                </div>
+                <div class="pure-control-group">
+                    <label for="ort">Ort:</label>
+                    <input type="text" placeholder="Ort:">
+                </div>
+                <div class="pure-control-group">
+                    <label for="plz">PLZ</label>
+                    <input type="text" placeholder="PLZ">
+                </div>
+                <div class="pure-control-group">
+                    <label for="geodata">GeoData</label>
+                    <input type="text" placeholder="GeoData">
+                </div>
+                <div>
+                    <button type="submit" class="pure-button pure-button-primary" onclick="hideDetails(event);">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<!--<script src="js/customer-admin.js"></script>-->
+</body>
+</html>
