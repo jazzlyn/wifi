@@ -1,15 +1,20 @@
-gestaltung wie auf dem portfolio
+Project Description
 
-kunde vorname nachname, edit und delete button
-bei edit:
-auch kunde vorname nachname, aber save und cancel
+- Was passiert
 
+- Einzelne screens
 
-1. schritt visuell
+- Funktionalität? Was wird implementiert.
+        - verwendete Libs
+        - verwendete Techniken
 
-wrapper UL klasse kv
-list 3 elements
+Prüfungsablauf
 
-vorname nachname kv heading
-menu is kv-menu
-detail form kv-details
+- Projektpräsentation
+    -> vorbereiten
+    -> Dummy Daten
+    -> Handout?
+    
+- Theoretischer Teil
+
+- Codechecking und eine kleine Aufgabe
